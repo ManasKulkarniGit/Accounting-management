@@ -1,26 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { ProfileContext } from "../App";
 
 const OrderSummary = ({ selectedRow }) => {
-  const [userName, setUserName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-
-  useEffect(() => {
-    // Retrieve the values from local storage and set them to component state
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      storedUserName
-        ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-        : "Sachin005"
-    );
-
-    const storedProfilePic = localStorage.getItem("profilePic");
-    if (storedProfilePic) {
-      setProfilePic(storedProfilePic);
-    } else {
-      setProfilePic("https://sachinsamal.netlify.app/img/sachin-samal.png");
-    }
-  }, []);
+  const { userName, profilePic } = useContext(ProfileContext);
 
   return (
     <>

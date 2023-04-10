@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
@@ -9,19 +10,7 @@ import "../../App.sass";
 
 const Users = () => {
   const [rows, setRows] = useState(userRows);
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      `${
-        storedUserName
-          ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-          : "Sachin005"
-      }`
-    );
-    document.title = "Users | Admin Dashboard";
-  }, []);
+  const { userName } = useContext(ProfileContext);
 
   function handleDelete(id) {
     setRows(rows.filter((row) => row.id !== id));
@@ -53,6 +42,10 @@ const Users = () => {
       },
     },
   ];
+
+  useEffect(() => {
+    document.title = "Users | Admin Dashboard";
+  });
 
   return (
     <>

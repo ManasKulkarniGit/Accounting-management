@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { ThemeContext, LoaderContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Card from "../../Components/Card/Card";
@@ -6,7 +7,6 @@ import SummaryCards from "../../Components/Card/SummaryCards";
 import Chart from "../../Components/Chart&Table/Chart";
 import Loader from "../../Reusable Components/Loader";
 import TransactionDataTable from "../../Components/Chart&Table/TransactionDataTable";
-import { ThemeContext, LoaderContext } from "../../App";
 import { transactionTableData } from "../../Components/Chart&Table/TransactionData";
 import { data } from "../../Components/Chart&Table/ChartData";
 import "../../App.sass";

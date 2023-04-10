@@ -8,11 +8,11 @@ import {
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useTheme } from "@mui/material/styles";
+import Navbar from "../../Components/Navbar/Navbar";
+import Sidebar from "../../Components/Sidebar/Sidebar";
 import TransactionDataTable from "../../Components/Chart&Table/TransactionDataTable";
 import OrderSummary from "../../Reusable Components/OrderSummary";
 import { transactionTableData } from "../../Components/Chart&Table/TransactionData";
-import Navbar from "../../Components/Navbar/Navbar";
-import Sidebar from "../../Components/Sidebar/Sidebar";
 import "../../Reusable Styling/Table.sass";
 
 const Sales = () => {

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
+import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
@@ -7,19 +8,12 @@ import { productListTableRows, productListTableColumns } from "./ProductData";
 import "../../App.sass";
 
 const Products = () => {
-  const [userName, setUserName] = useState("");
+  const { userName } = useContext(ProfileContext);
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      `${
-        storedUserName
-          ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-          : "Sachin005"
-      }`
-    );
     document.title = "Products | Admin Dashboard";
-  }, []);
+  });
+
   return (
     <>
       <main className="dashboard_container_main">

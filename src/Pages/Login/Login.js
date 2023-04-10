@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoaderContext } from "../../App";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import "./Login.sass";
 import Loader from "../../Reusable Components/Loader";
+import "./Login.sass";
 
 const Login = () => {
   const { isLoading } = useContext(LoaderContext);

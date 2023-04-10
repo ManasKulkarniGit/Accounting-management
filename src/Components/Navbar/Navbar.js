@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../App";
+import { ThemeContext, ProfileContext } from "../../App";
 import { generateRandomTotal } from "../../Reusable Components/Function";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
@@ -13,25 +13,7 @@ import "./Navbar.sass";
 
 const Navbar = () => {
   const { handleDarkMode } = useContext(ThemeContext);
-  // Setting the username and profile pic from the local storage saved while logging in
-  const [userName, setUserName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-  useEffect(() => {
-    // Retrieve the values from local storage and set them to component state
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      storedUserName
-        ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-        : "Sachin005"
-    );
-
-    const storedProfilePic = localStorage.getItem("profilePic");
-    if (storedProfilePic) {
-      setProfilePic(storedProfilePic);
-    } else {
-      setProfilePic("https://sachinsamal.netlify.app/img/sachin-samal.png");
-    }
-  }, []);
+  const { userName, profilePic } = useContext(ProfileContext);
 
   // Handle hamburger menu display for med and small devices
   const [menu, setMenu] = useState(false);
@@ -114,7 +96,6 @@ const Navbar = () => {
   function removePopup() {
     setPopup(false);
     localStorage.setItem("popupShown", true);
-    console.log("clicked");
   }
 
   // --------------------------------------------------------------------------

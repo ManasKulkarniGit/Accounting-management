@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { LoaderContext, ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Chart from "../../Components/Chart&Table/Chart";
 import TransactionDataTable from "../../Components/Chart&Table/TransactionDataTable";
 import OrderSummary from "../../Reusable Components/OrderSummary";
+import Loader from "../../Reusable Components/Loader";
 import { transactionTableData } from "../../Components/Chart&Table/TransactionData";
 import { data } from "../../Components/Chart&Table/ChartData";
-import { LoaderContext } from "../../App";
 import "../../App.sass";
 import "../../Pages/Orders/Orders.sass";
 import "../../Pages/Home/Home.sass";
-import Loader from "../../Reusable Components/Loader";
 
 const Orders = () => {
   const { isLoading } = useContext(LoaderContext);
-  const [userName, setUserName] = useState("");
+  const { userName } = useContext(ProfileContext);
   const [selectedRowId, setSelectedRowId] = useState(
     transactionTableData[0]?.id
   );
@@ -36,16 +36,9 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      `${
-        storedUserName
-          ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-          : "Sachin005"
-      }`
-    );
     document.title = "Orders | Admin Dashboard";
-  }, []);
+  });
+
   return (
     <>
       {isLoading ? (

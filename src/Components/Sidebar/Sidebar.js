@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../App";
+import { ThemeContext, ProfileContext } from "../../App";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
@@ -14,27 +14,10 @@ import "../../App.sass";
 import "./Sidebar.sass";
 
 const Sidebar = () => {
-  const { handleDarkMode, handleBlueColorMode } = useContext(ThemeContext);
+  const { handleDarkMode, handleBlueColorMode, handleDefaultMode } =
+    useContext(ThemeContext);
+  const { userName, profilePic } = useContext(ProfileContext);
   const [logoutPrompt, setLogoutPrompt] = useState(false);
-
-  const [userName, setUserName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-  useEffect(() => {
-    // Retrieve the values from local storage and set them to component state
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      storedUserName
-        ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-        : "Sachin005"
-    );
-
-    const storedProfilePic = localStorage.getItem("profilePic");
-    if (storedProfilePic) {
-      setProfilePic(storedProfilePic);
-    } else {
-      setProfilePic("https://sachinsamal.netlify.app/img/sachin-samal.png");
-    }
-  }, []);
 
   // Handles logout
   function handleLogout() {
@@ -131,6 +114,10 @@ const Sidebar = () => {
           <div className="sidebar_menu_color_option_div">
             <h6 className="mb-0">Color Theme</h6>
             <div className="color_option_div_wrapper">
+              <div
+                className="color_option_div"
+                onClick={handleDefaultMode}
+              ></div>
               <div className="color_option_div" onClick={handleDarkMode}></div>
               <div
                 className="color_option_div"

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import ListInTable from "../../Reusable Components/DataTable";
 import { userListTableColumns } from "./AddUsersData";
-import { v4 as uuidv4 } from "uuid";
 import "../../Reusable Styling/AddItem.sass";
-import Img from "../../Img/no_img.png";
 
 const AddUsers = () => {
   const [file, setFile] = useState("");
