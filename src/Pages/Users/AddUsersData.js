@@ -12,7 +12,7 @@ export const userListTableColumns = [
           className="cell_img"
           src={
             params.row.userImg ||
-            "https://sachinsamal.netlify.app/img/sachin-samal.png"
+            "https://sachinsamal005.netlify.app/img/sachin-samal.png"
           }
           alt="avatar"
         />

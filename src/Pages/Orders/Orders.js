@@ -37,7 +37,7 @@ const Orders = () => {
 
   useEffect(() => {
     document.title = "Orders | Admin Dashboard";
-  });
+  }, []);
 
   return (
     <>

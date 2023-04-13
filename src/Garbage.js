@@ -115,96 +115,15 @@
 //     .table, .data_grid, .card_div, .summary_card_div, .users_list_container p, .css-16c50h-MuiInputBase-root-MuiTablePagination-select , div.MuiTablePagination-actions > button, .MuiToolbar-root, .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon
 //         color: $lightFontColor
 
-export const ProfileContext = React.createContext();
-
-const Navbar = () => {
-  const { handleDarkMode } = useContext(ThemeContext);
-
-  // Setting the username and profile pic from the local storage saved while logging in
-  const [userName, setUserName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-  useEffect(() => {
-    // Retrieve the values from local storage and set them to component state
-    const storedUserName = localStorage.getItem("username");
-    setUserName(
-      storedUserName
-        ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-        : "Sachin005"
-    );
-
-    const storedProfilePic = localStorage.getItem("profilePic");
-    if (storedProfilePic) {
-      setProfilePic(storedProfilePic);
-    } else {
-      setProfilePic("https://sachinsamal.netlify.app/img/sachin-samal.png");
-    }
-  }, []);
-
-  const ProfileContextValues = {
-    userName,
-    setUserName,
-    profilePic,
-    setProfilePic,
-  };
-  return (
-    <></>
-   <ProfileContext.Provider value={ProfileContextValues}>
-        <div className="navbar_container">
-          <div className="navbar_logo_div">
-            <MenuIcon className="hamburger_menu_btn" onClick={handleMenu} />
-            <Link to="/home" style={{ textDecoration: "none", color: "unset" }}>
-              <span className="logo">Admin Dashboard</span>
-            </Link>
-          </div>
-      </ProfileContext.Provider>
-    </>
-  );
-};
-
-export default Navbar;
-
-import { ProfileContext } from "../../Components/Navbar/Navbar";
-
-const Users = (props) => {
-  const { userName } = useContext(ProfileContext);
-
-  return (
-    <>
-  
-              <div className="users_list_container_title">
-                <h4
-                  className="p-2 mb-0"
-                  style={{
-                    fontWeight: 700,
-                    margin: "0.5rem 0 0 0",
-                    padding: "0 0.5rem",
-                  }}
-                >
-                  Users handled by Admin | {userName}
-                </h4>
-              </div>
-              </>)}
-
-
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      `${
-        storedUserName
-          ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-          : "Sachin005"
-      }`
-    );
-    document.title = "Users | Admin Dashboard";
-  }, []);
-
-  
-
-  return (
-    <>
-      <main className="dashboard_container_main">
-        <Sidebar />
-        <div className="dashboard_container_right_panel">
-          <Navbar userName={userName} />
+// const [userName, setUserName] = useState("");
+// const [profilePic, setProfilePic] = useState(null);
+// useEffect(() => {
+//   const storedUserName = localStorage.getItem("userName");
+//   setUserName(
+//     `${storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)}`
+//   );
+//   const storedPic = localStorage.getItem("profilePic");
+//   if (storedPic) {
+//     setProfilePic(storedPic);
+//   }
+// }, [userName, profilePic]);

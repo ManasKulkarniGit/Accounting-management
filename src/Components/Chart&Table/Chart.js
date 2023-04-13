@@ -40,21 +40,21 @@ const Chart = ({ title, data, fillColor1, fillColor2, fillColor3 }) => {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="totalOrders"
+              dataKey="Total Orders"
               stackId="1"
               stroke="#027F89"
               fill={fillColor1}
             />
             <Area
               type="monotone"
-              dataKey="ordersDelivered"
+              dataKey="Orders Delivered"
               stackId="1"
               stroke="#82ca9d"
               fill={fillColor2}
             />
             <Area
               type="monotone"
-              dataKey="ordersPending"
+              dataKey="Orders Pending"
               stackId="1"
               stroke="#ffc658"
               fill={fillColor3}
@@ -74,9 +74,9 @@ const Chart = ({ title, data, fillColor1, fillColor2, fillColor3 }) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="totalOrders" fill={fillColor1} />
-            <Bar dataKey="ordersDelivered" fill={fillColor2} />
-            <Bar dataKey="ordersPending" fill={fillColor3} />
+            <Bar dataKey="Total Orders" fill={fillColor1} />
+            <Bar dataKey="Orders Delivered" fill={fillColor2} />
+            <Bar dataKey="Orders Pending" fill={fillColor3} />
           </BarChart>
         </ResponsiveContainer>
       </ChartDiv>

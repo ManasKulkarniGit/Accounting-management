@@ -21,10 +21,8 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [blueColorMode, setBlueColorMode] = useState(false);
   const appRef = useRef(null);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const [userName, setUserName] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
 
   function handleDarkMode() {
     setDarkMode(true);
@@ -50,22 +48,16 @@ function App() {
     localStorage.setItem("selectedTheme", "light");
   }
 
-  const [userName, setUserName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
   useEffect(() => {
     // Retrieve the values from local storage and set them to component state
     const storedUserName = localStorage.getItem("userName");
-    setUserName(
-      storedUserName
-        ? storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)
-        : "Sachin005"
-    );
+    setUserName(storedUserName ? storedUserName : "Sachin005");
 
     const storedProfilePic = localStorage.getItem("profilePic");
     if (storedProfilePic) {
       setProfilePic(storedProfilePic);
     } else {
-      setProfilePic("https://sachinsamal.netlify.app/img/sachin-samal.png");
+      setProfilePic("https://sachinsamal005.netlify.app/img/sachin-samal.png");
     }
 
     // Retrieve the selected theme from local storage and set
@@ -87,8 +79,22 @@ function App() {
       appRef.current.classList.remove("blue_color_mode");
     }
 
-    document.title = "Login | Admin Dashboard";
+    setIsLoading(false);
     window.scrollTo(0, 0);
+
+    // Add an event listener to update the local storage values when the profile is updated
+    const handleProfileUpdated = (event) => {
+      localStorage.setItem("userName", event.detail.userName);
+      localStorage.setItem("profilePic", event.detail.profilePic);
+      setUserName(event.detail.userName);
+      setProfilePic(event.detail.profilePic);
+    };
+    window.addEventListener("profileUpdated", handleProfileUpdated);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("profileUpdated", handleProfileUpdated);
+    };
   }, []);
 
   // Context values to pass to the children components
@@ -125,17 +131,17 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/logout" element={<Logout />} />
-                    <Route path="/orders/*">
+                    <Route path="/orders">
                       <Route index element={<Orders />} />
-                      <Route path="sales" element={<Sales />} />
+                      <Route path="/orders/sales" element={<Sales />} />
                     </Route>
-                    <Route path="/users/*">
+                    <Route path="/users">
                       <Route index element={<Users />} />
-                      <Route path="new" element={<AddUsers />} />
+                      <Route path="/users/new" element={<AddUsers />} />
                     </Route>
-                    <Route path="/products/*">
+                    <Route path="/products">
                       <Route index element={<Products />} />
-                      <Route path="new" element={<AddProducts />} />
+                      <Route path="/products/new" element={<AddProducts />} />
                     </Route>
                     <Route path="*" element={<Login />} />
                   </Route>

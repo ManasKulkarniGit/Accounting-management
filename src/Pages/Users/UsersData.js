@@ -11,7 +11,7 @@ export const userColumns = [
         <div className="cell_img_div">
           <img
             className="cell_img"
-            src="https://sachinsamal.netlify.app/img/sachin-samal.png"
+            src="https://sachinsamal005.netlify.app/img/sachin-samal.png"
             alt="avatar"
           />
           {params.row.username}

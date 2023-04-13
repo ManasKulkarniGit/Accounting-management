@@ -140,7 +140,7 @@ const Sidebar = () => {
             <p className="mb-0">Hero Admin</p>
           </div>
           <div className="bottom_profile_logout" onClick={handleLogout}>
-            <ExitToAppIcon />
+            <ExitToAppIcon style={{ cursor: "pointer" }} />
           </div>
           <div className="logout_prompt_div p-2">
             <div className="logout_text">

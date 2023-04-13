@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Login from "../Login/Login";
 
 const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("username");
+    localStorage.removeItem("userName");
     localStorage.removeItem("profilePic");
     navigate("/logout");
     document.title = "Logout | Admin Dashboard";
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     const handleBackButton = () => {
@@ -28,12 +27,13 @@ const Logout = () => {
           <p className="mb-0" style={{ color: "red", fontWeight: "700" }}>
             You have successfully logged out.
           </p>
-          <p className="mb-0 w-75 text-center">
-            Please use the correct admin credentials to access the admin
-            dashboard.
-          </p>
+          <button
+            className="btn btn-primary rounded-0 mt-2"
+            onClick={() => navigate("/")}
+          >
+            Go back to Login
+          </button>
         </div>
-        <Login />
       </LogoutContainer>
     </>
   );
@@ -45,6 +45,7 @@ const LogoutContainer = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 100%;
+  height: 100%;
   margin: 0 auto;
 
   .login_page {

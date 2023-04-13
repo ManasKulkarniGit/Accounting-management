@@ -14,9 +14,26 @@ import "./Navbar.sass";
 const Navbar = () => {
   const { handleDarkMode } = useContext(ThemeContext);
   const { userName, profilePic } = useContext(ProfileContext);
+  const [menu, setMenu] = useState(false);
+  const [readNotification, setReadNotification] = useState(false);
+  const [readMessage, setReadMessage] = useState(false);
+  const [profileMenu, setProfileMenu] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [popup, setPopup] = useState(false);
+  // const [userName, setUserName] = useState("");
+  // const [profilePic, setProfilePic] = useState(null);
+  // useEffect(() => {
+  //   const storedUserName = localStorage.getItem("userName");
+  //   setUserName(
+  //     `${storedUserName.charAt(0).toUpperCase() + storedUserName.substring(1)}`
+  //   );
+  //   const storedPic = localStorage.getItem("profilePic");
+  //   if (storedPic) {
+  //     setProfilePic(storedPic);
+  //   }
+  // }, [userName, profilePic]);
 
   // Handle hamburger menu display for med and small devices
-  const [menu, setMenu] = useState(false);
   function handleMenu() {
     setMenu(!menu);
     document
@@ -25,7 +42,6 @@ const Navbar = () => {
   }
 
   // Dummy read notification
-  const [readNotification, setReadNotification] = useState(false);
   const notifications = document.querySelectorAll(".count_notification");
   function handleNotification() {
     setReadNotification(!readNotification);
@@ -35,7 +51,6 @@ const Navbar = () => {
   }
 
   // Dummy read message
-  const [readMessage, setReadMessage] = useState(false);
   const messages = document.querySelectorAll(".count_message");
   function handleMessage() {
     setReadMessage(!readMessage);
@@ -45,9 +60,7 @@ const Navbar = () => {
   }
 
   // Handle user profile menu
-  const [profileMenu, setProfileMenu] = useState(false);
   const adminProfileDiv = document.querySelector(".admin_profile_div");
-
   function handleProfileMenu() {
     const isProfileMenuOpen = profileMenu;
     setProfileMenu(!isProfileMenuOpen);
@@ -64,7 +77,6 @@ const Navbar = () => {
   }
 
   // Handle profile
-  const [profile, setProfile] = useState(false);
   function handleProfile() {
     setProfile(!profile);
     adminProfileDiv.setAttribute(
@@ -74,22 +86,19 @@ const Navbar = () => {
   }
 
   // Handle welcome popup
-  const [popup, setPopup] = useState(false);
-  function handlePopup() {
-    setPopup(!popup);
-    const popupDiv = document.querySelector(".welcome_popup_div");
-    if (popupDiv) {
-      popupDiv.style.display = "block";
-    }
-  }
-
   useEffect(() => {
-    // Storing boolean flag in the browser's local storage to check if the popup has already been shown...
+    function handlePopup() {
+      setPopup(true);
+      const popupDiv = document.querySelector(".welcome_popup_div");
+      if (popupDiv) {
+        popupDiv.style.display = "block";
+      }
+      localStorage.setItem("popupShown", true);
+    }
+
     const popupShown = localStorage.getItem("popupShown");
     if (!popupShown) {
-      setTimeout(() => {
-        handlePopup();
-      }, 1000);
+      handlePopup();
     }
   }, []);
 
