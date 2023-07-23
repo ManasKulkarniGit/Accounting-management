@@ -64,6 +64,15 @@ const Sidebar = () => {
               </li>
             </Link>
             <Link
+              to="/categories"
+              style={{ textDecoration: "none", color: "unset" }}
+            >
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <p>Categories</p>
+              </li>
+            </Link>
+            <Link
               to="/products"
               style={{ textDecoration: "none", color: "unset" }}
             >
@@ -79,6 +88,15 @@ const Sidebar = () => {
               <li>
                 <CreditCardIcon className="icon" />
                 <p>Orders</p>
+              </li>
+            </Link>
+            <Link
+              to="/units"
+              style={{ textDecoration: "none", color: "unset" }}
+            >
+              <li>
+                <CreditCardIcon className="icon" />
+                <p>Units</p>
               </li>
             </Link>
             <h6 className="title">For Admins</h6>
@@ -98,6 +116,15 @@ const Sidebar = () => {
               <li>
                 <AddShoppingCartIcon className="icon" />
                 <p>Add an item</p>
+              </li>
+            </Link>
+            <Link
+              to="/categories/new"
+              style={{ textDecoration: "none", color: "unset" }}
+            >
+              <li>
+                <AddShoppingCartIcon className="icon" />
+                <p>Add a category</p>
               </li>
             </Link>
             <Link
