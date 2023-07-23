@@ -8,6 +8,7 @@
     width: 400px
     max-width: 100%
     margin: 0 auto
+    margin-top: 12rem
     @media screen and (max-width: 500px)
         margin: 0 $standardMargin
         align-self: center
@@ -19,28 +20,6 @@
     h1 
         margin-bottom: $medMargin
         text-align: center
-
-    .profile_pic_container 
-        @include flexColumnCenter
-        .upload_pic_label
-            &:hover
-                border: 0
-
-        label 
-            margin-bottom: $smallMargin
-            text-align: left
-            cursor: pointer
-        
-        input[type="file"] 
-            margin-bottom: $medMargin
-
-        img 
-            width: 50px
-            height: 50px
-            object-fit: cover
-            margin-bottom: $smallMargin
-            border-radius: 50%
-            box-shadow: $boxShadow
 
     .username_container, .password_container
         @include flexColumn
