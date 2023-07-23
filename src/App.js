@@ -4,8 +4,11 @@ import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Users from "./Pages/Users/Users";
 import Products from "./Pages/Products/Products";
+import Categories from "./Pages/Categories/Categories";
+import Units from "./Pages/Units/Units";
 import AddUsers from "./Pages/Users/AddUsers";
 import AddProducts from "./Pages/Products/AddProducts";
+import AddCategories from "./Pages/Categories/AddCategories";
 import Orders from "./Pages/Orders/Orders";
 import Logout from "./Pages/Logout/Logout";
 import Sales from "./Pages/Orders/Sales";
@@ -142,6 +145,14 @@ function App() {
                     <Route path="/products">
                       <Route index element={<Products />} />
                       <Route path="/products/new" element={<AddProducts />} />
+                    </Route>
+                    <Route path="/categories">
+                      <Route index element={<Categories />} />
+                      <Route path="/categories/new" element={<AddCategories />} />
+                    </Route>
+                    <Route path="/units">
+                      <Route index element={<Units />} />
+                      {/* <Route path="/categories/new" element={<AddCategories />} /> */}
                     </Route>
                     <Route path="*" element={<Login />} />
                   </Route>
