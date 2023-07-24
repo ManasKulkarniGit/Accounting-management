@@ -7,8 +7,9 @@ import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
 import { userColumns } from "./UsersData";
 import "../../App.sass";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
 import db from "../../firebase"
+import toast from "react-hot-toast";
 
 
 const Users = () => {
@@ -16,7 +17,31 @@ const Users = () => {
   const { userName } = useContext(ProfileContext);
 
   function handleDelete(id) {
-    setRows(rows.filter((row) => row.id !== id));
+    // console.log(typeof(id),id)
+    const q = query(collection(db, "staff"), where("id", "==", id));
+    getDocs(q)
+      .then((querySnapshot) => {
+        // console.log("hiii")
+        // console.log(querySnapshot.empty)
+        if (!querySnapshot.empty) {
+          const document = querySnapshot.docs[0];
+          const documentRef = doc(db, "staff", document.id);
+          deleteDoc(documentRef)
+            .then(() => {
+              toast.success("staff deleted successfully");
+              setRows(rows.filter((row) => row.id !== id));
+            })
+            .catch((error) => {
+              console.error("Error deleting document:", error);
+            });
+        } else {
+          console.log("Document with the specified attribute not found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting documents:", error);
+      });
+    
   }
   useEffect(() => {
     const fetchData = async() => {
