@@ -60,7 +60,7 @@ const Sidebar = () => {
             >
               <li>
                 <PersonOutlineIcon className="icon" />
-                <p>Users</p>
+                <p>Staff</p>
               </li>
             </Link>
             <Link

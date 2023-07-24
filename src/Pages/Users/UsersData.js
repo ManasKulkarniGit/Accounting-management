@@ -3,8 +3,8 @@
 export const userColumns = [
   { field: "id", headerName: "ID", width: 100 },
   {
-    field: "user",
-    headerName: "User",
+    field: "Staff",
+    headerName: "Staff",
     width: 200,
     renderCell: (params) => {
       return (
@@ -14,7 +14,7 @@ export const userColumns = [
             src="https://sachinsamal005.netlify.app/img/sachin-samal.png"
             alt="avatar"
           />
-          {params.row.username}
+          {params.row.name}
         </div>
       );
     },
@@ -26,22 +26,23 @@ export const userColumns = [
     renderCell: (params) => {
       return (
         <p className={`${params.row.email}`}>
-          {params.row.username.includes(" ")
-            ? params.row.username.split(" ").join("").toLowerCase() +
-              (params.row.age || "") +
-              "@gmail.com"
-            : params.row.username.toLowerCase() +
-              (params.row.age || "") +
-              "@gmail.com"}
+          {params.row.email}
         </p>
       );
     },
   },
 
   {
-    field: "age",
-    headerName: "Age",
-    width: 100,
+    field: "Phone",
+    headerName: "Phone",
+    width: 160,
+    renderCell: (params) => {
+      return (
+        <p className={`${params.row.email}`}>
+          {params.row.phone}
+        </p>
+      );
+    },
   },
   {
     field: "status",
@@ -51,17 +52,13 @@ export const userColumns = [
       return (
         <div
           className={`cell_status_div px-2 py-1 ${
-            params.row.age < 40
+            params.row.status === "active"
               ? "active"
-              : params.row.age > 40 && params.row.age < 60
-              ? "pending"
               : "passive"
           }`}
         >
-          {params.row.age < 40
+          {params.row.staus === "active"
             ? "Active"
-            : params.row.age > 40 && params.row.age < 60
-            ? "Pending"
             : "Passive"}
         </div>
       );

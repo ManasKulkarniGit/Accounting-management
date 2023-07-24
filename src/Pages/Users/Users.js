@@ -5,16 +5,38 @@ import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
-import { userRows, userColumns } from "./UsersData";
+import { userColumns } from "./UsersData";
 import "../../App.sass";
+import { collection, query, getDocs } from "firebase/firestore";
+import db from "../../firebase"
+
 
 const Users = () => {
-  const [rows, setRows] = useState(userRows);
+  const [rows, setRows] = useState([]);
   const { userName } = useContext(ProfileContext);
 
   function handleDelete(id) {
     setRows(rows.filter((row) => row.id !== id));
   }
+  useEffect(() => {
+    const fetchData = async() => {
+
+        try {
+            const a=[]
+            const q = query(collection(db, "staff"));
+            const queryt = await getDocs(q);
+            queryt.forEach((doc) => {
+                a.push(doc.data())
+            });
+            setRows(a);
+        } catch(err) {
+            console.error(err);
+        }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]) 
 
   const actionColumn = [
     {
@@ -44,7 +66,7 @@ const Users = () => {
   ];
 
   useEffect(() => {
-    document.title = "Users | Admin Dashboard";
+    document.title = "Staff | Admin Dashboard";
   });
 
   return (
@@ -63,7 +85,7 @@ const Users = () => {
                   padding: "0 0.5rem",
                 }}
               >
-                Users handled by Admin | {userName}
+                Staff handled by Admin | {userName}
               </h4>
             </div>
             <ListInTable
