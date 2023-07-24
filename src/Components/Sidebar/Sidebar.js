@@ -106,7 +106,7 @@ const Sidebar = () => {
             >
               <li>
                 <PersonAddAltIcon className="icon" />
-                <p>Add a user</p>
+                <p>Add Staff</p>
               </li>
             </Link>
             <Link
