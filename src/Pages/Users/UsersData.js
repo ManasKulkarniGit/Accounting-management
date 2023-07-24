@@ -14,7 +14,7 @@ export const userColumns = [
             src="https://sachinsamal005.netlify.app/img/sachin-samal.png"
             alt="avatar"
           />
-          {params.row.name}
+          {params.row.userName}
         </div>
       );
     },

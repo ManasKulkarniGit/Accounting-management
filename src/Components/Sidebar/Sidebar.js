@@ -115,7 +115,7 @@ const Sidebar = () => {
             >
               <li>
                 <AddShoppingCartIcon className="icon" />
-                <p>Add an item</p>
+                <p>Add Product</p>
               </li>
             </Link>
             <Link

@@ -1,43 +1,58 @@
 // Product data list
 export const productListTableColumns = [
-  { field: "id", headerName: "ID", width: 100 },
-  {
-    field: "productImg",
-    headerName: "Image",
-    width: 100,
-    renderCell: (params) => {
-      return (
-        <div className="cell_img_div">
-          <img className="cell_img" src={params.row.productImg} alt="avatar" />
-        </div>
-      );
-    },
-  },
+  { field: "id", headerName: "ID", width: 5 },
+  // {
+  //   field: "productImg",
+  //   headerName: "Image",
+  //   width: 100,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className="cell_img_div">
+  //         <img className="cell_img" src={params.row.productImg} alt="avatar" />
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     field: "productName",
     headerName: "Product",
-    width: 150,
+    width: 80,
   },
   {
-    field: "price",
-    headerName: "Price",
-    width: 80,
+    field: "category",
+    headerName: "Category",
+    width: 100,
   },
   {
     field: "brand",
     headerName: "Brand",
-    width: 120,
+    width: 80,
   },
 
   {
-    field: "model",
-    headerName: "Model",
+    field: "actualCost",
+    headerName: "Actual Cost",
     width: 100,
+  },
+  {
+    field: "sellCost",
+    headerName: "Selling Cost",
+    width: 100,
+  },
+  {
+    field: "gst",
+    headerName: "GST %",
+    width: 70,
   },
   {
     field: "quantity",
     headerName: "Quantity",
     width: 70,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 150,
   },
 ];
 

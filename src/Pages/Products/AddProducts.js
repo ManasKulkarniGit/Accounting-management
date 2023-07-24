@@ -1,100 +1,103 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
-import ListInTable from "../../Reusable Components/DataTable";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { productListTableColumns } from "./ProductData";
+// import ListInTable from "../../Reusable Components/DataTable";
+// import { userListTableColumns } from "./AddUsersData";
 import "../../Reusable Styling/AddItem.sass";
+import toast from 'react-hot-toast';
+import { collection,addDoc } from "firebase/firestore";
+import db from "../../firebase"
+
+
 
 const AddProducts = () => {
-  const [file, setFile] = useState("");
+
   const [productName, setProductName] = useState("");
-  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
+  const [actualCost, setActualCost] = useState("");
+  const [sellCost, setSellCost] = useState("");
+  const [gst,setgst] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [productRows, setProductRows] = useState([]);
-  const UUID = uuidv4();
+  const [description, setDescription] = useState("");
+
+  // const [userRows, setUserRows] = useState([]);
+  // const UUID = uuidv4();
 
   function handleSubmit(e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    // Check if price and quantity are numbers and within allowed ranges
-    const parsedPrice = parseFloat(price);
-    const parsedQuantity = parseFloat(quantity);
-    if (isNaN(parsedPrice) || isNaN(parsedQuantity)) {
-      alert("Price and Quantity must be a number.");
-      return;
-    } else if (parsedPrice > 2000 || parsedQuantity > 20) {
-      alert("Price cannot exceed 2000, and Quantity cannot exceed 20.");
-      return;
-    }
-
-    // Check if all fields are filled in
-    if (!file || !productName || !price || !brand || !model || !quantity) {
-      alert("Please fill in all fields");
-      return;
-    }
-
-    // Create new product object with truncated fields if necessary
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const newProduct = {
+      if (!productName || !category || !brand || !actualCost || !sellCost || !gst || !quantity) {
+        alert("Please fill in all fields");
+        return;
+      }
+      
+      const newRow = {
         id: uuidv4(),
-        productImg: reader.result,
-        productName: productName.substring(0, 50),
-        price: parsedPrice,
-        brand: brand.substring(0, 20),
-        model: model.substring(0, 20),
-        quantity: parsedQuantity,
+        productName:productName ,
+        category:category ,
+        brand:brand,
+        actualCost:actualCost,
+        sellCost:sellCost,
+        gst:gst,
+        quantity :quantity,
+        description:description,
       };
-
-      // Add new product to productRows and reset form fields
-      setProductRows([...productRows, newProduct]);
-      setFile("");
-      setProductName("");
-      setPrice("");
-      setBrand("");
-      setModel("");
-      setQuantity("");
+      const usersCollectionRef = collection(db, "products");
+      addDoc(usersCollectionRef, newRow)
+        .then((docRef) => {
+          toast.success("new staff added successfully")
+          setProductName("");
+          setCategory("");
+          setBrand("");
+          setActualCost("");
+          setSellCost("");
+          setgst("");
+          setQuantity("");
+          setDescription("");
+        })
+        .catch((error) => {
+          console.error("Error adding new product:", error);
+        });
+      // setUserRows([...userRows, newRow]);
     };
-  }
+  
 
-  function handleDelete(id) {
-    setProductRows(productRows.filter((row) => row.id !== id));
-  }
+  // const handleDelete = (id) => {
+  //   setUserRows(userRows.filter((item) => item.id !== id));
+  // };
 
-  const actionColumn = [
-    {
-      field: "action",
-      headerName: "Action",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="cell_action_div">
-            <Link
-              to="/users/test"
-              style={{ textDecoration: "none", color: "unset" }}
-            >
-              <div className="view_btn">View</div>
-            </Link>
-            <div
-              className="delete_btn"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-          </div>
-        );
-      },
-    },
-  ];
+  // const actionColumn = [
+  //   {
+  //     field: "action",
+  //     headerName: "Action",
+  //     width: 200,
+  //     renderCell: (params) => {
+  //       return (
+  //         <div className="cell_action_div">
+  //           <Link
+  //             to="/users/test"
+  //             style={{ textDecoration: "none", color: "unset" }}
+  //             className="view_btn"
+  //           >
+  //             View
+  //           </Link>
+  //           <div
+  //             className="delete_btn"
+  //             onClick={() => handleDelete(params.row.id)}
+  //           >
+  //             Delete
+  //           </div>
+  //         </div>
+  //       );
+  //     },
+  //   },
+  // ];
 
   useEffect(() => {
-    document.title = "New Products | Admin Dashboard";
+    document.title = "New Product | Admin Dashboard";
   }, []);
 
   return (
@@ -104,86 +107,99 @@ const AddProducts = () => {
         <div className="dashboard_container_right_panel">
           <Navbar />
           <div className="add_item_title_div">
-            <h6>Add products</h6>
+            <h6>Add Product</h6>
           </div>
           <div className="add_item_container">
             <div className="add_user_item_div_wrapper">
               <div className="add_user_item_div">
-                <div className="add_user_div_left">
-                  <img
-                    src={
-                      file
-                        ? URL.createObjectURL(file)
-                        : require("../../Img/no_img.png")
-                    }
-                    alt="Upload"
-                  />
-                </div>
                 <div className="form_div">
                   <form onSubmit={handleSubmit}>
-                    <div className="file_upload_div">
-                      <label
-                        htmlFor="file"
-                        className="d-flex align-items-center text-success"
-                      >
-                        Image:{" "}
-                        <DriveFolderUploadOutlinedIcon className="icon mx-1" />
-                      </label>
-                      <input
-                        type="file"
-                        id="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        style={{ display: "none" }}
-                      />
-                    </div>
                     <div className="form_input_div">
                       <div className="form_input">
-                        <label>Product</label>
+                        <label>ProductName</label>
                         <input
+                          required
                           type="text"
+                          placeholder="MacBook"
                           value={productName}
-                          placeholder="Macbook"
                           onChange={(e) => setProductName(e.target.value)}
+                          maxLength={50}
                         />
                       </div>
                       <div className="form_input">
-                        <label>Price</label>
+                        <label>Category</label>
                         <input
+                          required
                           type="text"
-                          value={price}
-                          inputMode="numeric"
-                          placeholder="2000 max (in USD)"
-                          onChange={(e) => setPrice(e.target.value)}
+                          placeholder="Laptop"
+                          value={category}
+                          onChange={(e) => setCategory(e.target.value)}
+                          maxLength={50}
                         />
                       </div>
                       <div className="form_input">
                         <label>Brand</label>
                         <input
-                          value={brand}
-                          type="mail"
+                          required
+                          type="text"
                           placeholder="Apple"
+                          value={brand}
                           onChange={(e) => setBrand(e.target.value)}
-                          maxLength={20}
                         />
                       </div>
                       <div className="form_input">
-                        <label>Model</label>
+                        <label>Actual Cost</label>
                         <input
+                          required
                           type="text"
-                          value={model}
-                          placeholder="Mac14"
-                          onChange={(e) => setModel(e.target.value)}
-                          maxLength={20}
+                          placeholder="500"
+                          value={actualCost}
+                          onChange={(e) => setActualCost(e.target.value)}
+                          maxLength={50}
                         />
                       </div>
                       <div className="form_input">
-                        <label>Quantitiy</label>
+                        <label>Selling Cost</label>
                         <input
+                          required
+                          type="text"
+                          placeholder="500"
+                          value={sellCost}
+                          onChange={(e) => setSellCost(e.target.value)}
+                          maxLength={10}
+                        />
+                      </div>
+                      <div className="form_input">
+                        <label>GST %</label>
+                        <input
+                          required
+                          type="text"
+                          placeholder="18"
+                          value={gst}
+                          onChange={(e) => setgst(e.target.value)}
+                          maxLength={10}
+                        />
+                      </div>
+                      <div className="form_input">
+                        <label>Quantity</label>
+                        <input
+                          required
+                          type="text"
+                          placeholder="100"
                           value={quantity}
-                          type="text"
-                          inputMode="numeric"
-                          placeholder="20 max"
                           onChange={(e) => setQuantity(e.target.value)}
+                          maxLength={10}
+                        />
+                      </div>
+                      <div className="form_input">
+                        <label>Description</label>
+                        <input
+                          required
+                          type="text"
+                          placeholder="Macbook air..."
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          maxLength={50}
                         />
                       </div>
                     </div>
@@ -192,19 +208,19 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            <div className="item_list_div">
-              {productRows.length > 0 && (
+            {/* <div className="item_list_div">
+              {userRows.length > 0 && (
                 <>
-                  <h6 className="px-2 mb-0 mt-2">List of products</h6>
+                  <h6 className="px-2 mb-0 mt-2">List of users</h6>
                   <ListInTable
                     key={UUID}
-                    rows={productRows}
-                    columns={productListTableColumns.concat(actionColumn)}
+                    rows={userRows}
+                    columns={userListTableColumns.concat(actionColumn)}
                     height={400}
                   />
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </main>
