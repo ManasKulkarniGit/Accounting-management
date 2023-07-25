@@ -1,31 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
-import { productListTableColumns } from "./ProductData";
+import { subproductListTableColumns } from "./subProductData";
 import "../../App.sass";
 import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
 
 
-const Products = () => {
+const SubProducts = () => {
+  const {id} = useParams();
   const [rows, setRows] = useState([]);
   const { userName } = useContext(ProfileContext);
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
-    const q = query(collection(db, "products"), where("id", "==", id));
+    const q = query(collection(db, "sub-product"), where("id", "==", id));
     getDocs(q)
       .then((querySnapshot) => {
         // console.log("hiii")
         // console.log(querySnapshot.empty)
         if (!querySnapshot.empty) {
           const document = querySnapshot.docs[0];
-          const documentRef = doc(db, "products", document.id);
+          const documentRef = doc(db, "sub-product", document.id);
           deleteDoc(documentRef)
             .then(() => {
               toast.success("product deleted successfully");
@@ -48,12 +49,14 @@ const Products = () => {
 
         try {
             const a=[]
-            const q = query(collection(db, "main-product"));
+            const q = query(collection(db, "sub-product"),where("parentId","==",id));
             const queryt = await getDocs(q);
             queryt.forEach((doc) => {
                 a.push(doc.data())
             });
             setRows(a);
+            console.log("hiii");
+            console.log(rows);
         } catch(err) {
             console.error(err);
         }
@@ -61,7 +64,7 @@ const Products = () => {
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]) 
+  },[id]) 
 
   const actionColumn = [
     {
@@ -116,7 +119,7 @@ const Products = () => {
             </div>
             <ListInTable
               rows={rows}
-              columns={productListTableColumns.concat(actionColumn)}
+              columns={subproductListTableColumns.concat(actionColumn)}
               height={680}
             />
           </UserTable>
@@ -136,4 +139,4 @@ export const UserTable = styled.div`
   /* END */
 `;
 
-export default Products;
+export default SubProducts;

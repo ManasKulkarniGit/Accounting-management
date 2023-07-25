@@ -17,10 +17,10 @@ const AddProducts = () => {
   const [productName, setProductName] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
-  const [actualCost, setActualCost] = useState("");
-  const [sellCost, setSellCost] = useState("");
-  const [gst,setgst] = useState("");
-  const [quantity, setQuantity] = useState("");
+  // const [actualCost, setActualCost] = useState("");
+  // const [sellCost, setSellCost] = useState("");
+  // const [gst,setgst] = useState("");
+  // const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
 
   // const [userRows, setUserRows] = useState([]);
@@ -29,7 +29,7 @@ const AddProducts = () => {
   function handleSubmit(e) {
       e.preventDefault();
 
-      if (!productName || !category || !brand || !actualCost || !sellCost || !gst || !quantity) {
+      if (!productName || !category || !brand) {
         alert("Please fill in all fields");
         return;
       }
@@ -39,23 +39,23 @@ const AddProducts = () => {
         productName:productName ,
         category:category ,
         brand:brand,
-        actualCost:actualCost,
-        sellCost:sellCost,
-        gst:gst,
-        quantity :quantity,
+        // actualCost:actualCost,
+        // sellCost:sellCost,
+        // gst:gst,
+        // quantity :quantity,
         description:description,
       };
-      const usersCollectionRef = collection(db, "products");
+      const usersCollectionRef = collection(db, "main-product");
       addDoc(usersCollectionRef, newRow)
         .then((docRef) => {
           toast.success("new staff added successfully")
           setProductName("");
           setCategory("");
           setBrand("");
-          setActualCost("");
-          setSellCost("");
-          setgst("");
-          setQuantity("");
+          // setActualCost("");
+          // setSellCost("");
+          // setgst("");
+          // setQuantity("");
           setDescription("");
         })
         .catch((error) => {
@@ -147,7 +147,7 @@ const AddProducts = () => {
                           onChange={(e) => setBrand(e.target.value)}
                         />
                       </div>
-                      <div className="form_input">
+                      {/* <div className="form_input">
                         <label>Actual Cost</label>
                         <input
                           required
@@ -157,8 +157,8 @@ const AddProducts = () => {
                           onChange={(e) => setActualCost(e.target.value)}
                           maxLength={50}
                         />
-                      </div>
-                      <div className="form_input">
+                      </div> */}
+                      {/* <div className="form_input">
                         <label>Selling Cost</label>
                         <input
                           required
@@ -168,8 +168,8 @@ const AddProducts = () => {
                           onChange={(e) => setSellCost(e.target.value)}
                           maxLength={10}
                         />
-                      </div>
-                      <div className="form_input">
+                      </div> */}
+                      {/* <div className="form_input">
                         <label>GST %</label>
                         <input
                           required
@@ -179,8 +179,8 @@ const AddProducts = () => {
                           onChange={(e) => setgst(e.target.value)}
                           maxLength={10}
                         />
-                      </div>
-                      <div className="form_input">
+                      </div> */}
+                      {/* <div className="form_input">
                         <label>Quantity</label>
                         <input
                           required
@@ -190,7 +190,7 @@ const AddProducts = () => {
                           onChange={(e) => setQuantity(e.target.value)}
                           maxLength={10}
                         />
-                      </div>
+                      </div> */}
                       <div className="form_input">
                         <label>Description</label>
                         <input

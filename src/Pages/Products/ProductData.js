@@ -29,26 +29,26 @@ export const productListTableColumns = [
     width: 120,
   },
 
-  {
-    field: "actualCost",
-    headerName: "Actual Cost",
-    width: 120,
-  },
-  {
-    field: "sellCost",
-    headerName: "Selling Cost",
-    width: 120,
-  },
-  {
-    field: "gst",
-    headerName: "GST %",
-    width: 120,
-  },
-  {
-    field: "quantity",
-    headerName: "Quantity",
-    width: 120,
-  },
+  // {
+  //   field: "actualCost",
+  //   headerName: "Actual Cost",
+  //   width: 120,
+  // },
+  // {
+  //   field: "sellCost",
+  //   headerName: "Selling Cost",
+  //   width: 120,
+  // },
+  // {
+  //   field: "gst",
+  //   headerName: "GST %",
+  //   width: 120,
+  // },
+  // {
+  //   field: "quantity",
+  //   headerName: "Quantity",
+  //   width: 120,
+  // },
   {
     field: "description",
     headerName: "Description",

@@ -13,7 +13,8 @@ import Orders from "./Pages/Orders/Orders";
 import Logout from "./Pages/Logout/Logout";
 import Sales from "./Pages/Orders/Sales";
 import "./App.sass";
-import Product from "./Pages/Products/Product";
+// import Product from "./Pages/Products/Product";
+import SubProducts from "./Pages/Products/SubProducts";
 
 // Context for the theme settings and the functions to handle them
 export const LoaderContext = React.createContext();
@@ -151,7 +152,7 @@ function App() {
                       <Route index element={<Categories />} />
                       <Route path="/categories/new" element={<AddCategories />} />
                     </Route>
-                    <Route path="/product/:id" element={<Product />} />
+                    <Route path="/product/:id" element={<SubProducts />} />
                     <Route path="/units">
                       <Route index element={<Units />} />
                       {/* <Route path="/categories/new" element={<AddCategories />} /> */}
