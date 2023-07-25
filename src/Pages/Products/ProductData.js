@@ -16,7 +16,7 @@ export const productListTableColumns = [
   {
     field: "productName",
     headerName: "Product",
-    width: 80,
+    width: 120,
   },
   {
     field: "category",
