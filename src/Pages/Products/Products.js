@@ -69,10 +69,11 @@ const Products = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
+        const g=`/product/${params.row.id}`
         return (
           <div className="cell_action_div">
             <Link
-              to="/products"
+              to={g}
               style={{ textDecoration: "none", color: "unset" }}
               className="view_btn"
             >

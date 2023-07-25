@@ -4,12 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { categoryListTableColumns } from "./CategoryData";
 import "../../Reusable Styling/AddItem.sass";
 
 const AddCategories = () => {
-  const [file, setFile] = useState("");
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
@@ -33,18 +31,14 @@ const AddCategories = () => {
     }
 
     // Check if all fields are filled in
-    if (!file || !productName || !price || !brand || !model || !quantity) {
+    if (!productName || !price || !brand || !model || !quantity) {
       alert("Please fill in all fields");
       return;
     }
 
-    // Create new product object with truncated fields if necessary
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
+   
       const newProduct = {
         id: uuidv4(),
-        productImg: reader.result,
         productName: productName.substring(0, 50),
         price: parsedPrice,
         brand: brand.substring(0, 20),
@@ -52,15 +46,14 @@ const AddCategories = () => {
         quantity: parsedQuantity,
       };
 
-      // Add new product to productRows and reset form fields
+
       setProductRows([...productRows, newProduct]);
-      setFile("");
       setProductName("");
       setPrice("");
       setBrand("");
       setModel("");
       setQuantity("");
-    };
+    
   }
 
   function handleDelete(id) {
@@ -109,33 +102,8 @@ const AddCategories = () => {
           <div className="add_item_container">
             <div className="add_user_item_div_wrapper">
               <div className="add_user_item_div">
-                <div className="add_user_div_left">
-                  <img
-                    src={
-                      file
-                        ? URL.createObjectURL(file)
-                        : require("../../Img/no_img.png")
-                    }
-                    alt="Upload"
-                  />
-                </div>
                 <div className="form_div">
                   <form onSubmit={handleSubmit}>
-                    <div className="file_upload_div">
-                      <label
-                        htmlFor="file"
-                        className="d-flex align-items-center text-success"
-                      >
-                        Image:{" "}
-                        <DriveFolderUploadOutlinedIcon className="icon mx-1" />
-                      </label>
-                      <input
-                        type="file"
-                        id="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        style={{ display: "none" }}
-                      />
-                    </div>
                     <div className="form_input_div">
                       <div className="form_input">
                         <label>Product</label>
