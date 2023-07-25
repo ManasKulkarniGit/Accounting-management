@@ -16,43 +16,43 @@ export const productListTableColumns = [
   {
     field: "productName",
     headerName: "Product",
-    width: 80,
+    width: 120,
   },
   {
     field: "category",
     headerName: "Category",
-    width: 100,
+    width: 120,
   },
   {
     field: "brand",
     headerName: "Brand",
-    width: 80,
+    width: 120,
   },
 
   {
     field: "actualCost",
     headerName: "Actual Cost",
-    width: 100,
+    width: 120,
   },
   {
     field: "sellCost",
     headerName: "Selling Cost",
-    width: 100,
+    width: 120,
   },
   {
     field: "gst",
     headerName: "GST %",
-    width: 70,
+    width: 120,
   },
   {
     field: "quantity",
     headerName: "Quantity",
-    width: 70,
+    width: 120,
   },
   {
     field: "description",
     headerName: "Description",
-    width: 150,
+    width: 120,
   },
 ];
 

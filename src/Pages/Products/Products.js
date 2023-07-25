@@ -72,7 +72,7 @@ const Products = () => {
         return (
           <div className="cell_action_div">
             <Link
-              to="/users"
+              to="/products"
               style={{ textDecoration: "none", color: "unset" }}
               className="view_btn"
             >
