@@ -96,7 +96,7 @@ const Sidebar = () => {
             >
               <li>
                 <CreditCardIcon className="icon" />
-                <p>Units</p>
+                <p>Customers</p>
               </li>
             </Link>
             <h6 className="title">For Admins</h6>
@@ -125,6 +125,15 @@ const Sidebar = () => {
               <li>
                 <AddShoppingCartIcon className="icon" />
                 <p>Add a category</p>
+              </li>
+            </Link>
+            <Link
+              to="/customer/new"
+              style={{ textDecoration: "none", color: "unset" }}
+            >
+              <li>
+                <AddShoppingCartIcon className="icon" />
+                <p>Add Customer</p>
               </li>
             </Link>
             <Link

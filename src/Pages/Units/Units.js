@@ -11,7 +11,7 @@ const Units = () => {
   const { userName } = useContext(ProfileContext);
 
   useEffect(() => {
-    document.title = "Products | Admin Dashboard";
+    document.title = "Customers | Admin Dashboard";
   });
 
   return (
@@ -30,7 +30,7 @@ const Units = () => {
                   padding: "0 0.5rem",
                 }}
               >
-                Products handled by Admin | {userName}
+                Customers handled by Admin | {userName}
               </h4>
             </div>
             <ListInTable
