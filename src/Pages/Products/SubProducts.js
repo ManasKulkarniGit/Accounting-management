@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ProfileContext } from "../../App";
+import { v4 as uuidv4 } from "uuid";
+// import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
@@ -15,7 +16,9 @@ import toast from "react-hot-toast";
 const SubProducts = () => {
   const {id} = useParams();
   const [rows, setRows] = useState([]);
-  const { userName } = useContext(ProfileContext);
+  // const { userName } = useContext(ProfileContext);
+  const newId = uuidv4();
+  const ng=`/subproduct/${newId}/${id}`
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
@@ -72,7 +75,7 @@ const SubProducts = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        const g=`/product/${params.row.id}`
+        const g=`/subproduct/${params.row.id}/${params.row.parentId}`;
         return (
           <div className="cell_action_div">
             <Link
@@ -114,7 +117,6 @@ const SubProducts = () => {
                   padding: "0 0.5rem",
                 }}
               >
-                Product handled by Admin | {userName}
               </h4>
             </div>
             <ListInTable
@@ -123,6 +125,9 @@ const SubProducts = () => {
               height={680}
             />
           </UserTable>
+          <Link to={ng} style={{ textDecoration: "none", color: "unset" }}>
+            <button className="view_btn">ADD</button>
+          </Link>
         </div>
       </main>
     </>
