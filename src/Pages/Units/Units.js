@@ -43,17 +43,17 @@ const Units = () => {
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
-    const q = query(collection(db, "products"), where("id", "==", id));
+    const q = query(collection(db, "customers"), where("id", "==", id));
     getDocs(q)
       .then((querySnapshot) => {
         // console.log("hiii")
         // console.log(querySnapshot.empty)
         if (!querySnapshot.empty) {
           const document = querySnapshot.docs[0];
-          const documentRef = doc(db, "products", document.id);
+          const documentRef = doc(db, "customers", document.id);
           deleteDoc(documentRef)
             .then(() => {
-              toast.success("product deleted successfully");
+              toast.success("customer deleted successfully");
               setRows(rows.filter((row) => row.id !== id));
             })
             .catch((error) => {
