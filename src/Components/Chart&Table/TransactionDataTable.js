@@ -7,13 +7,24 @@ import {
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useTheme } from "@mui/material/styles";
+import { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import "../../Reusable Styling/Table.sass";
+import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
+import db from "../../firebase"
+import toast from "react-hot-toast";
 // import { Link } from "react-router-dom";
 
 const TransactionDataTable = ({ onRowClick, tableRows }) => {
   const theme = useTheme();
-
+  const [a, seta] = useState(tableRows);
+  useEffect(()=>{
+    if(tableRows.length !== 0){
+        seta(tableRows)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[tableRows])
+ 
   const tableCellNamesForTransaction = [
     "Order ID",
     "Product",
@@ -28,29 +39,29 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
-    // const q = query(collection(db, "products"), where("id", "==", id));
-    // getDocs(q)
-    //   .then((querySnapshot) => {
-    //     // console.log("hiii")
-    //     // console.log(querySnapshot.empty)
-    //     if (!querySnapshot.empty) {
-    //       const document = querySnapshot.docs[0];
-    //       const documentRef = doc(db, "products", document.id);
-    //       deleteDoc(documentRef)
-    //         .then(() => {
-    //           toast.success("product deleted successfully");
-    //           setRows(rows.filter((row) => row.id !== id));
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error deleting document:", error);
-    //         });
-    //     } else {
-    //       console.log("Document with the specified attribute not found.");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error getting documents:", error);
-    //   });
+    const q = query(collection(db, "orders"), where("id", "==", id));
+    getDocs(q)
+      .then((querySnapshot) => {
+        // console.log("hiii")
+        // console.log(querySnapshot.empty)
+        if (!querySnapshot.empty) {
+          const document = querySnapshot.docs[0];
+          const documentRef = doc(db, "orders", document.id);
+          deleteDoc(documentRef)
+            .then(() => {
+              toast.success("Order deleted successfully");
+              seta(a.filter((row) => row.id !== id));
+            })
+            .catch((error) => {
+              console.error("Error deleting document:", error);
+            });
+        } else {
+          console.log("Document with the specified attribute not found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting documents:", error);
+      });
     
   }
 
@@ -78,8 +89,8 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableRows &&
-            tableRows.map((row) => (
+          {a &&
+            a.map((row) => (
               <TableRow key={row.id} onClick={() => onRowClick(row.id)}>
                 <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.id}{" "}

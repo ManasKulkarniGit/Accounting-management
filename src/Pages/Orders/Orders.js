@@ -46,7 +46,7 @@ const Orders = () => {
             queryt.forEach((doc) => {
                 a.push(doc.data())
             });
-            console.log(a)
+            // console.log(a)
             setRows(a);
         } catch(err) {
             console.error(err);
