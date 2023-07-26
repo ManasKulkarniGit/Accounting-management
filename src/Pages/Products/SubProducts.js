@@ -1,56 +1,32 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
-import { unitListTableColumns } from "./UnitData";
+import { subproductListTableColumns } from "./subProductData";
 import "../../App.sass";
 import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
 
 
-
-const Units = () => {
-  const { userName } = useContext(ProfileContext);
+const SubProducts = () => {
+  const {id} = useParams();
   const [rows, setRows] = useState([]);
-  useEffect(() => {
-    const fetchData = async() => {
-
-        try {
-            const a=[]
-            const q = query(collection(db, "customers"));
-            const queryt = await getDocs(q);
-            queryt.forEach((doc) => {
-                a.push(doc.data())
-            });
-            setRows(a);
-        } catch(err) {
-            console.error(err);
-        }
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]) 
-
-
-  useEffect(() => {
-    document.title = "Customers | Admin Dashboard";
-  });
+  const { userName } = useContext(ProfileContext);
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
-    const q = query(collection(db, "products"), where("id", "==", id));
+    const q = query(collection(db, "sub-product"), where("id", "==", id));
     getDocs(q)
       .then((querySnapshot) => {
         // console.log("hiii")
         // console.log(querySnapshot.empty)
         if (!querySnapshot.empty) {
           const document = querySnapshot.docs[0];
-          const documentRef = doc(db, "products", document.id);
+          const documentRef = doc(db, "sub-product", document.id);
           deleteDoc(documentRef)
             .then(() => {
               toast.success("product deleted successfully");
@@ -68,6 +44,27 @@ const Units = () => {
       });
     
   }
+  useEffect(() => {
+    const fetchData = async() => {
+
+        try {
+            const a=[]
+            const q = query(collection(db, "sub-product"),where("parentId","==",id));
+            const queryt = await getDocs(q);
+            queryt.forEach((doc) => {
+                a.push(doc.data())
+            });
+            setRows(a);
+            console.log("hiii");
+            console.log(rows);
+        } catch(err) {
+            console.error(err);
+        }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[id]) 
 
   const actionColumn = [
     {
@@ -75,7 +72,7 @@ const Units = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        const g=`/customer/${params.row.id}`
+        const g=`/product/${params.row.id}`
         return (
           <div className="cell_action_div">
             <Link
@@ -97,14 +94,18 @@ const Units = () => {
     },
   ];
 
+  useEffect(() => {
+    document.title = "Product | Admin Dashboard";
+  });
+
   return (
     <>
       <main className="dashboard_container_main">
         <Sidebar />
         <div className="dashboard_container_right_panel">
           <Navbar />
-          <div className="products_list_container">
-            <div className="products_list_container_title">
+          <UserTable className="users_list_container">
+            <div className="users_list_container_title">
               <h4
                 className="p-2 mb-0"
                 style={{
@@ -113,33 +114,29 @@ const Units = () => {
                   padding: "0 0.5rem",
                 }}
               >
-                Customers handled by Admin | {userName}
+                Product handled by Admin | {userName}
               </h4>
             </div>
             <ListInTable
               rows={rows}
-              columns={unitListTableColumns.concat(actionColumn)}
-              height={400}
+              columns={subproductListTableColumns.concat(actionColumn)}
+              height={680}
             />
-          </div>
+          </UserTable>
         </div>
       </main>
     </>
   );
 };
 
-export const ProductListContainer = styled.div`
+export const UserTable = styled.div`
+  z-index: 0;
   /* Resetting MUI table color props */
   p,
-  .css-rtrcn9-MuiTablePagination-root .MuiTablePagination-selectLabel,
-  div.MuiTablePagination-actions > button button {
-    color: inherit;
-  }
-
-  .MuiToolbar-root {
+  div.MuiTablePagination-actions > button {
     color: inherit;
   }
   /* END */
 `;
 
-export default Units;
+export default SubProducts;

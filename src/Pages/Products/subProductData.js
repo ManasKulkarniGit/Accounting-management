@@ -1,6 +1,6 @@
 // Product data list
-export const unitListTableColumns = [
-    { field: "id", headerName: "ID", width: 100 },
+export const subproductListTableColumns = [
+    // { field: "id", headerName: "ID", width: 5 },
     // {
     //   field: "productImg",
     //   headerName: "Image",
@@ -14,71 +14,49 @@ export const unitListTableColumns = [
     //   },
     // },
     {
-      field: "shopname",
-      headerName: "Shop Name",
-      width: 150,
+      field: "subCategory",
+      headerName: "Sub Category",
+      width: 140,
     },
-    {
-      field: "ownername",
-      headerName: "Owner Name",
-      width: 100,
-    },
-    {
-      field: "type",
-      headerName: "type",
-      width: 70,
-    },
+    // {
+    //   field: "category",
+    //   headerName: "Category",
+    //   width: 120,
+    // },
+    // {
+    //   field: "brand",
+    //   headerName: "Brand",
+    //   width: 120,
+    // },
   
+    {
+      field: "actualCost",
+      headerName: "Actual Cost",
+      width: 120,
+    },
+    {
+      field: "sellCost",
+      headerName: "Selling Cost",
+      width: 120,
+    },
     {
       field: "gst",
-      headerName: "GST",
-      width: 70,
+      headerName: "GST %",
+      width: 120,
     },
     {
-      field: "email",
-      headerName: "email",
-      width: 110,
+      field: "quantity",
+      headerName: "Quantity",
+      width: 120,
     },
-    {
-      field: "contact",
-      headerName: "contact",
-      width: 100,
-    },
-    {
-      field: "acontact",
-      headerName: "Alternate contact",
-      width: 100,
-    },
-    {
-      field: "cat",
-      headerName: "category",
-      width: 70,
-    },
-    {
-      field: "address",
-      headerName: "address",
-      width: 70,
-    },
-    {
-      field: "pincode",
-      headerName: "pincode",
-      width: 70,
-    },
-    {
-      field: "dob",
-      headerName: "DOB",
-      width: 70,
-    },
-    {
-      field: "shope",
-      headerName: "Shop Established",
-      width: 70,
-    },
-
-
+    // {
+    //   field: "description",
+    //   headerName: "Description",
+    //   width: 120,
+    // },
   ];
   
-  export const unitListTableRows = [
+  export const subproductListTableRows = [
     {
       id: 1,
       productName: "Acer nitro 5",

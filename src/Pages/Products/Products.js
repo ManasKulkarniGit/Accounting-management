@@ -48,7 +48,7 @@ const Products = () => {
 
         try {
             const a=[]
-            const q = query(collection(db, "products"));
+            const q = query(collection(db, "main-product"));
             const queryt = await getDocs(q);
             queryt.forEach((doc) => {
                 a.push(doc.data())
