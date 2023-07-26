@@ -17,6 +17,7 @@ import "./App.sass";
 import SubProducts from "./Pages/Products/SubProducts";
 import Addcustomer from "./Pages/Units/Addcustomer";
 import Customer from "./Pages/Units/Customer";
+import Order from "./Pages/Orders/Order";
 
 // Context for the theme settings and the functions to handle them
 export const LoaderContext = React.createContext();
@@ -156,6 +157,7 @@ function App() {
                     </Route>
                     <Route path="/customer/new" element={<Addcustomer />} />
                     <Route path="/customer/:id" element={<Customer />} />
+                    <Route path="/order/:id" element={<Order />} />
                     <Route path="/product/:id" element={<SubProducts />} />
                     <Route path="/units">
                       <Route index element={<Units />} />

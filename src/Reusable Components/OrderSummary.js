@@ -23,25 +23,21 @@ const OrderSummary = ({ selectedRow }) => {
             </div>
             <div className="admin_detail_div">
               <div className="admin_detail_wrapper">
-                <h4 className="admin_title_text mb-0 mt-1">{userName}</h4>
                 <p className="admin_info_text mb-0">
                   <span>Email: </span>
-                  {userName}@gmail.com
+                  {userName}
                 </p>
                 <p className="admin_info_text mb-0">
-                  <span>Phone no: </span> +1 877-9086758
+                  <span>Phone no: </span> +91 999999999
                 </p>
                 <p className="admin_info_text mb-0">
-                  <span>Address: </span> Elton St. 234 Garden Yd, NewYork
-                </p>
-                <p className="admin_info_text mb-0">
-                  <span>Counrty: </span> US
+                  <span>City: </span>Pune
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="customer_content_div w-100">
+        {/* <div className="customer_content_div w-100">
           <div className="customer_item">
             <div className="customer_detail_wrapper">
               <h5 className="customer_title_text mb-0">
@@ -80,7 +76,7 @@ const OrderSummary = ({ selectedRow }) => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </OrderInfoDiv>
     </>
   );

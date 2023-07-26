@@ -11,33 +11,51 @@ import { data } from "../../Components/Chart&Table/ChartData";
 import "../../App.sass";
 import "../../Pages/Orders/Orders.sass";
 import "../../Pages/Home/Home.sass";
+import { collection, query, getDocs, where } from "firebase/firestore";
+import db from "../../firebase"
+import {useNavigate} from "react-router-dom"
+
 
 const Orders = () => {
   const { isLoading } = useContext(LoaderContext);
   const { userName } = useContext(ProfileContext);
-  const [selectedRowId, setSelectedRowId] = useState(
-    transactionTableData[0]?.id
-  );
+  // const [selectedRowId, setSelectedRowId] = useState(0)
   const [chartData, setChartData] = useState(data);
-  const selectedRow = transactionTableData.find(
-    (row) => row.id === selectedRowId
-  );
+  const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
+  
+
 
   // Change the corresponding chart, bar graph and list data if the transaction table row is clicked
   const handleRowClick = (id) => {
-    setSelectedRowId(id);
-    const newChartData = chartData.map((week) => ({
-      ...week,
-      totalOrders: Math.floor(Math.random() * 5000) + 1000,
-      ordersDelivered: Math.floor(Math.random() * 3000) + 500,
-      ordersPending: Math.floor(Math.random() * 3000) + 500,
-    }));
-    setChartData(newChartData);
+    let g=`/order/${id}`
+    navigate(g);
   };
 
   useEffect(() => {
     document.title = "Orders | Admin Dashboard";
   }, []);
+
+  useEffect(() => {
+    const fetchData = async() => {
+
+        try {
+            const a=[]
+            const q = query(collection(db, "orders"));
+            const queryt = await getDocs(q);
+            queryt.forEach((doc) => {
+                a.push(doc.data())
+            });
+            console.log(a)
+            setRows(a);
+        } catch(err) {
+            console.error(err);
+        }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]) 
 
   return (
     <>
@@ -59,8 +77,8 @@ const Orders = () => {
                 Orders handled by Admin | {userName}
               </h4>
               <div className="order_div_wrapper">
-                <OrderSummary selectedRow={selectedRow} />
-                <div className="charts_container">
+                <OrderSummary />
+                {/* <div className="charts_container">
                   <Chart
                     title="Order handled by Admin ( Last 4 weeks)"
                     fillColor1="#027F89"
@@ -69,15 +87,15 @@ const Orders = () => {
                     data={chartData}
                     onRowClick={handleRowClick}
                   />
-                </div>
+                </div> */}
               </div>
               <div className="transaction_list_div">
                 <h4 className="transaction_list_div_title">
-                  Last Transactions
+                  Orders
                 </h4>
                 <TransactionDataTable
                   onRowClick={handleRowClick}
-                  tableRows={transactionTableData}
+                  tableRows={rows}
                 />
               </div>
             </div>
