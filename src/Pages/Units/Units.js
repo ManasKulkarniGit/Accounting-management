@@ -76,6 +76,7 @@ const Units = () => {
       width: 200,
       renderCell: (params) => {
         const g=`/customer/${params.row.id}`
+        const orders = `/customer/${params.row.id}/orders`
         return (
           <div className="cell_action_div">
             <Link
@@ -91,6 +92,13 @@ const Units = () => {
             >
               Delete
             </div>
+            <Link
+              to={orders}
+              style={{ textDecoration: "none", color: "unset" }}
+              className="view_btn"
+            >
+              Orders
+            </Link>
           </div>
         );
       },

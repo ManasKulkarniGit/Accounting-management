@@ -11,6 +11,7 @@ import AddProducts from "./Pages/Products/AddProducts";
 import SubProduct from "./Pages/Products/AddSubProduct";
 import AddCategories from "./Pages/Categories/AddCategories";
 import Orders from "./Pages/Orders/Orders";
+import CustomerOrders from "./Pages/Orders/CustomerOrders";
 import Logout from "./Pages/Logout/Logout";
 import Sales from "./Pages/Orders/Sales";
 import "./App.sass";
@@ -162,6 +163,7 @@ function App() {
                     <Route path="/customer/:id" element={<Customer />} />
                     <Route path="/order/:id" element={<Order />} />
                     <Route path="/product/:id" element={<SubProducts />} />
+                    <Route path="/customer/:id/orders" element={<CustomerOrders />} />
                     <Route path="/units">
                       <Route index element={<Units />} />
                       {/* <Route path="/categories/new" element={<AddCategories />} /> */}

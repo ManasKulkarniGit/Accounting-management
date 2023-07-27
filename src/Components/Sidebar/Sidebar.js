@@ -118,7 +118,7 @@ const Sidebar = () => {
                 <p>Add Product</p>
               </li>
             </Link>
-            <Link
+            {/* <Link
               to="/categories/new"
               style={{ textDecoration: "none", color: "unset" }}
             >
@@ -126,7 +126,7 @@ const Sidebar = () => {
                 <AddShoppingCartIcon className="icon" />
                 <p>Add a category</p>
               </li>
-            </Link>
+            </Link> */}
             <Link
               to="/customer/new"
               style={{ textDecoration: "none", color: "unset" }}

@@ -28,7 +28,7 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
   const tableCellNamesForTransaction = [
     "Order ID",
     "Product",
-    "Customer",
+    // "Customer",
     "Staff Id",
     "Date",
     "Quantity",
@@ -100,9 +100,9 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
                     {row.ordername}
                   </div>
                 </TableCell>
-                <TableCell className="table_cell" sx={{ p: 1 }}>
+                {/* <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.customer}
-                </TableCell>
+                </TableCell> */}
                 <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.staffid}
                 </TableCell>
