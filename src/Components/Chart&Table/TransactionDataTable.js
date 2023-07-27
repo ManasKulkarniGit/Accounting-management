@@ -27,11 +27,11 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
  
   const tableCellNamesForTransaction = [
     "Order ID",
-    "Product",
+    // "Product",
     // "Customer",
     "Staff Id",
     "Date",
-    "Quantity",
+    // "Quantity",
     "Payment Method",
     "Status",
     "Action"
@@ -95,11 +95,11 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
                 <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.id}{" "}
                 </TableCell>
-                <TableCell className="table_cell" sx={{ p: 1 }}>
+                {/* <TableCell className="table_cell" sx={{ p: 1 }}>
                   <div className="cell_wrapper">
                     {row.ordername}
                   </div>
-                </TableCell>
+                </TableCell> */}
                 {/* <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.customer}
                 </TableCell> */}
@@ -109,9 +109,9 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
                 <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.date}
                 </TableCell>
-                <TableCell className="table_cell" sx={{ p: 1 }}>
+                {/* <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.quantity}
-                </TableCell>
+                </TableCell> */}
                 <TableCell className="table_cell" sx={{ p: 1 }}>
                   {row.paymentmethod}
                 </TableCell>

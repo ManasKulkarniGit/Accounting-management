@@ -34,6 +34,10 @@ const Order = () => {
   }
   // const [userRows, setUserRows] = useState([]);
   // const UUID = uuidv4();
+  
+    
+
+
 
   function handleSubmit(e) {
         e.preventDefault();
@@ -126,12 +130,72 @@ const Order = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]) 
 
+
+
   useEffect(()=>{
     if(currentPost.length !== 0){
         inig();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[currentPost])
+
+    const [options, setOptions] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState({ mainProductId: "", subProductId: "" });
+    async function getMainProducts() {
+      const mainProductsCollectionRef = collection(db, "main-product");
+      const mainProductsQuerySnapshot = await getDocs(mainProductsCollectionRef);
+      const mainProducts = mainProductsQuerySnapshot.docs.map((doc) => doc.data());
+      return mainProducts;
+    }
+    async function getSubproducts(parentId) {
+      const subproductsCollectionRef = collection(db, "sub-product");
+      const subproductsQuerySnapshot = await getDocs(
+        query(subproductsCollectionRef, where("parentId", "==", parentId))
+      );
+      const subproducts = subproductsQuerySnapshot.docs.map((doc) => doc.data());
+      return subproducts;
+    }
+    async function populateDropdown() {
+      const mainProducts = await getMainProducts();
+      const options = [];
+  
+      for (const mainProduct of mainProducts) {
+        const subproducts = await getSubproducts(mainProduct.id);
+        if (subproducts.length > 0) {
+          subproducts.forEach((subproduct) => {
+            const option = (
+              <option key={String(Math.floor(Math.random() * (10000 - 2 + 1)) + 2)} value={`${mainProduct.id}-${subproduct.id}`}>
+                {mainProduct.productName} - {subproduct.subCategory}
+              </option>
+            );
+            options.push(option);
+          });
+        } else {
+          const option = (
+            <option key={mainProduct.id} value={mainProduct.id}>
+              {mainProduct.name}
+            </option>
+          );
+          options.push(option);
+        }
+      }
+  
+      setOptions(options);
+    }
+  
+    useEffect(() => {
+      populateDropdown();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); 
+
+
+
+  function handleDropdownChange(event) {
+    const selectedValue = event.target.value;
+    const [mainProductId, subProductId] = selectedValue.split("-");
+    setSelectedProduct({ mainProductId, subProductId });
+
+  }
 
   return (
     <>
@@ -227,6 +291,12 @@ const Order = () => {
                     </div>
                     <button type="submit">Update</button>
                   </form>
+                  <select id="productDropdown" onChange={handleDropdownChange}>
+                    <option value="">Select a product</option>
+                    {options}
+                  </select>
+                  <p>Main Product ID: {selectedProduct.mainProductId}</p>
+                  <p>Subproduct ID: {selectedProduct.subProductId}</p>
                 </div>
               </div>
             </div>
