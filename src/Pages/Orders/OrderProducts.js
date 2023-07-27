@@ -6,19 +6,87 @@ import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
-import { subproductListTableColumns } from "./subProductData";
+import { orderProductsListTableColumns } from "./OrderProductsData";
 import "../../App.sass";
 import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
 
 
-const SubProducts = () => {
+const OrderProducts = () => {
   const {id} = useParams();
   const [rows, setRows] = useState([]);
   // const { userName } = useContext(ProfileContext);
   const newId = uuidv4();
   const ng=`/subproduct/${newId}/${id}`
+
+  async function getOrderProducts(orderId) {
+    const orderCollectionRef = collection(db, "orders");
+      const orderQuerySnapshot = await getDocs(
+        query(orderCollectionRef, where("id", "==", orderId))
+      );
+      if (!orderQuerySnapshot.empty) {
+        const orderDoc = orderQuerySnapshot.docs[0];
+        const orderData = orderDoc.data();
+    
+        const products = orderData.products;
+        console.log(products)
+        const productPromises = products.map(async (product) => {
+          const productId = product.subproductId;
+          const productQuantity = product.quantity;
+          const productDocCollectionRef = collection(db,"sub-product")
+    
+          try {
+            const productDocSnapshott = await getDocs(
+                query(productDocCollectionRef, where("id", "==", productId))
+              );
+            const productDocSnapshot = productDocSnapshott.docs[0];
+            if (productDocSnapshot.exists()) {
+              const productData = productDocSnapshot.data();
+              const cost = parseInt(productData.sellCost,10);
+              const iquantity = parseInt(productQuantity);
+              const total = (cost*iquantity).toString();
+              const rowData = {
+                id : productData.id,
+                productName: productData.productName,
+                subCategory: productData.subCategory,
+                cost : productData.sellCost,
+                quantity: productQuantity,
+                gst: productData.gst,
+                total : total,
+              };
+              return rowData;
+            } else {
+              return null; // or handle if the product document doesn't exist
+            }
+          } catch (error) {
+            console.error("Error fetching product information:", error);
+            return null; // or handle the error accordingly
+          }
+        });
+    
+        const productDataArray = await Promise.all(productPromises);
+        const validProductDataArray = productDataArray.filter((product) => product !== null);
+    
+        // Here, validProductDataArray contains the order's products along with their information
+        return validProductDataArray;
+      } else {
+        console.log("Order document not found.");
+        return [];
+      }
+  }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const a = await getOrderProducts(id);
+      setRows(a);
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
@@ -47,26 +115,26 @@ const SubProducts = () => {
       });
     
   }
-  useEffect(() => {
-    const fetchData = async() => {
+//   useEffect(() => {
+//     const fetchData = async() => {
 
-        try {
-            const a=[]
-            const q = query(collection(db, "sub-product"),where("parentId","==",id));
-            const queryt = await getDocs(q);
-            queryt.forEach((doc) => {
-                a.push(doc.data())
-            });
-            setRows(a);
-            console.log(rows);
-        } catch(err) {
-            console.error(err);
-        }
-    };
+//         try {
+//             const a=[]
+//             const q = query(collection(db, "sub-product"),where("parentId","==",id));
+//             const queryt = await getDocs(q);
+//             queryt.forEach((doc) => {
+//                 a.push(doc.data())
+//             });
+//             setRows(a);
+//             console.log(rows);
+//         } catch(err) {
+//             console.error(err);
+//         }
+//     };
 
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[id]) 
+//     fetchData();
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   },[id]) 
 
   const actionColumn = [
     {
@@ -120,11 +188,11 @@ const SubProducts = () => {
             </div>
             <ListInTable
               rows={rows}
-              columns={subproductListTableColumns.concat(actionColumn)}
+              columns={orderProductsListTableColumns.concat(actionColumn)}
               height={680}
             />
           </UserTable>
-          <Link to={ng} style={{ textDecoration: "none", color: "unset" }}>
+          <Link to={`/order/${id}`} style={{ textDecoration: "none", color: "unset" }}>
             <button className="view_btn">ADD</button>
           </Link>
         </div>
@@ -143,4 +211,4 @@ export const UserTable = styled.div`
   /* END */
 `;
 
-export default SubProducts;
+export default OrderProducts;

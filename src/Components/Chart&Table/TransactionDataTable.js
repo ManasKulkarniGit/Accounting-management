@@ -13,7 +13,7 @@ import "../../Reusable Styling/Table.sass";
 import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const TransactionDataTable = ({ onRowClick, tableRows }) => {
   const theme = useTheme();
@@ -34,7 +34,8 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
     // "Quantity",
     "Payment Method",
     "Status",
-    "Action"
+    "Delete",
+    "View Products"
   ];
 
   function handleDelete(id) {
@@ -141,6 +142,15 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
                         Delete
                       </div>
                     </div>
+                </TableCell>
+                <TableCell>
+                  <Link
+                      to={`/order/${row.id}/products`}
+                      style={{ textDecoration: "none", color: "unset" }}
+                      className="view_btn"
+                    >
+                      View
+                    </Link>
                 </TableCell>
               </TableRow>
             ))}

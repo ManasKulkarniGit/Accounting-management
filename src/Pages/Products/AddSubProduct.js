@@ -20,16 +20,16 @@ const SubProduct = () => {
   const [actualCost, setActualCost] = useState("");
   const [sellCost, setSellCost] = useState("");
   const [gst, setGst] = useState("");
-  // const [currentPost, setCurrentPost] = useState([]);
-  // const inig=()=>{
-  //   if(currentPost.length !==0 ){
-  //       setSubCategory(currentPost.subCategory);
-  //       setQuantity(currentPost.quantity);
-  //       setActualCost(currentPost.actualCost);
-  //       setSellCost(currentPost.sellCost);
-  //       setGst(currentPost.gst);
-  //   }
-  // }
+  const [currentPost, setCurrentPost] = useState([]);
+  const inig=()=>{
+    if(currentPost.length !==0 ){
+        setSubCategory(currentPost.subCategory);
+        setQuantity(currentPost.quantity);
+        setActualCost(currentPost.actualCost);
+        setSellCost(currentPost.sellCost);
+        setGst(currentPost.gst);
+    }
+  }
   // const [userRows, setUserRows] = useState([]);
   // const UUID = uuidv4();
 
@@ -119,32 +119,32 @@ const SubProduct = () => {
     document.title = "New Product | Admin Dashboard";
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async() => {
+  useEffect(() => {
+    const fetchData = async() => {
 
-  //       try {
-  //           const a=[]
-  //           const q = query(collection(db, "sub-product"), where("id", "==", id));
-  //           const queryt = await getDocs(q);
-  //           queryt.forEach((doc) => {
-  //               a.push(doc.data())
-  //           });
-  //           setCurrentPost(a[0])
-  //       } catch(err) {
-  //           console.error(err);
-  //       }
-  //   };
+        try {
+            const a=[]
+            const q = query(collection(db, "sub-product"), where("id", "==", id));
+            const queryt = await getDocs(q);
+            queryt.forEach((doc) => {
+                a.push(doc.data())
+            });
+            setCurrentPost(a[0])
+        } catch(err) {
+            console.error(err);
+        }
+    };
 
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[]) 
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]) 
 
-  // useEffect(()=>{
-  //   if(currentPost.length !== 0){
-  //       inig();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[currentPost])
+  useEffect(()=>{
+    if(currentPost.length !== 0){
+        inig();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[currentPost])
 
   return (
     <>

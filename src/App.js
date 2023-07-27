@@ -9,8 +9,10 @@ import Units from "./Pages/Units/Units";
 import AddUsers from "./Pages/Users/AddUsers";
 import AddProducts from "./Pages/Products/AddProducts";
 import SubProduct from "./Pages/Products/AddSubProduct";
+import OrderProducts from "./Pages/Orders/OrderProducts";
 import AddCategories from "./Pages/Categories/AddCategories";
 import Orders from "./Pages/Orders/Orders";
+import Order2 from "./Pages/Orders/Order2";
 import CustomerOrders from "./Pages/Orders/CustomerOrders";
 import Logout from "./Pages/Logout/Logout";
 import Sales from "./Pages/Orders/Sales";
@@ -161,7 +163,8 @@ function App() {
                     </Route>
                     <Route path="/customer/new" element={<Addcustomer />} />
                     <Route path="/customer/:id" element={<Customer />} />
-                    <Route path="/order/:id" element={<Order />} />
+                    <Route path="/order/:id" element={<Order2 />} />
+                    <Route path="/order/:id/products" element={<OrderProducts />} />
                     <Route path="/product/:id" element={<SubProducts />} />
                     <Route path="/customer/:id/orders" element={<CustomerOrders />} />
                     <Route path="/units">
