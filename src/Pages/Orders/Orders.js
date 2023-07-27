@@ -3,7 +3,8 @@ import { LoaderContext, ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Chart from "../../Components/Chart&Table/Chart";
-import TransactionDataTable from "../../Components/Chart&Table/TransactionDataTable";
+// import TransactionDataTable from "../../Components/Chart&Table/TransactionDataTable";
+import OrderTable from "../../Components/Chart&Table/OrderTable";
 import OrderSummary from "../../Reusable Components/OrderSummary";
 import Loader from "../../Reusable Components/Loader";
 import { transactionTableData } from "../../Components/Chart&Table/TransactionData";
@@ -93,7 +94,7 @@ const Orders = () => {
                 <h4 className="transaction_list_div_title">
                   Orders
                 </h4>
-                <TransactionDataTable
+                <OrderTable
                   onRowClick={handleRowClick}
                   tableRows={rows}
                 />
