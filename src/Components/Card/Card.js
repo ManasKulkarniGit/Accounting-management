@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -17,10 +17,7 @@ const Card = ({ type, backgroundColor }) => {
         link: "/orders/sales",
         linkName: "See all earnings",
         dataTitle: "Total income generated after excluding marketing costs.",
-        isMoney: false,
         icon: <MonetizationOnOutlinedIcon className="icon" />,
-        isGrowth: false,
-        growthAmt: "-7%",
       };
       break;
 
@@ -31,10 +28,7 @@ const Card = ({ type, backgroundColor }) => {
         linkName: "See all orders",
         dataTitle:
           "Total no of orders shipped including free gifts for customer acquisition.",
-        isMoney: true,
         icon: <ShoppingCartOutlinedIcon className="icon" />,
-        isGrowth: true,
-        growthAmt: "+11%",
       };
       break;
 
@@ -44,10 +38,7 @@ const Card = ({ type, backgroundColor }) => {
         link: "/products",
         linkName: "See all products",
         dataTitle: "All products shipped including free gifts and offers.",
-        isMoney: false,
         icon: <LoyaltyIcon className="icon" />,
-        isGrowth: false,
-        growthAmt: "-5%",
       };
       break;
 
@@ -60,8 +51,6 @@ const Card = ({ type, backgroundColor }) => {
           "Total no of users who subscribed for the daily newsletters and/or created a new account.",
         isMoney: true,
         icon: <PersonOutlinedIcon className="icon" />,
-        isGrowth: true,
-        growthAmt: "+3%",
       };
       break;
 
@@ -81,7 +70,6 @@ const Card = ({ type, backgroundColor }) => {
       >
         <div className="card_div_left_content align-items-start">
           <p className="title">{data.title}</p>
-          <p className="counter">{data.isMoney ? "Growth" : "Decline"}</p>
           <Link
             to={data.link}
             style={{ textDecoration: "none", color: "unset" }}
@@ -91,21 +79,13 @@ const Card = ({ type, backgroundColor }) => {
         </div>
         <div className="card_div_right_content align-items-center">
           <div className="growth_div text-center">
-            {data.isGrowth ? (
+            {
               <>
-                <KeyboardArrowUpIcon />{" "}
-                <p className="m-0 text-success font-weight-bold">
-                  {data.growthAmt}
-                </p>
-              </>
-            ) : (
-              <>
-                <KeyboardArrowDownIcon />{" "}
                 <p className="m-0 text-danger font-weight-bold">
                   {data.growthAmt}
                 </p>
               </>
-            )}
+            }
           </div>
           {data.icon}
         </div>
