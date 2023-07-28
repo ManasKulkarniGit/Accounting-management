@@ -272,7 +272,9 @@ const Order2 = () => {
                         {options}
                      </select>
                   
-                        <p>Subproduct ID: {subproductId}</p>
+                        {/* <p>Subproduct ID: {subproductId}</p> */}
+                        <br></br>
+                        <br></br>
                         <div className="form_input">
                         <label>Quantity</label>
                         <input

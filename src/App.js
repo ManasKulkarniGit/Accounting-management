@@ -163,7 +163,8 @@ function App() {
                     </Route>
                     <Route path="/customer/new" element={<Addcustomer />} />
                     <Route path="/customer/:id" element={<Customer />} />
-                    <Route path="/order/:id" element={<Order2 />} />
+                    <Route path="/orderadd/:id" element={<Order2 />} />
+                    <Route path="/order/:id" element={<Order/>} />
                     <Route path="/order/:id/products" element={<OrderProducts />} />
                     <Route path="/product/:id" element={<SubProducts />} />
                     <Route path="/customer/:id/orders" element={<CustomerOrders />} />

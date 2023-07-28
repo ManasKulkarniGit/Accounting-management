@@ -193,7 +193,7 @@ const OrderProducts = () => {
               height={680}
             />
           </UserTable>
-          <Link to={`/order/${id}`} style={{ textDecoration: "none", color: "unset" }}>
+          <Link to={`/orderadd/${id}`} style={{ textDecoration: "none", color: "unset" }}>
             <button className="view_btn">ADD</button>
           </Link>
         </div>
