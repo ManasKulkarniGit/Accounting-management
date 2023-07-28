@@ -116,7 +116,7 @@ const SubProduct = () => {
   
 
   useEffect(() => {
-    document.title = "New Product | Admin Dashboard";
+    document.title = "View Product | Admin Dashboard";
   }, []);
 
   useEffect(() => {
@@ -170,6 +170,7 @@ const SubProduct = () => {
                           value={subCategory}
                           onChange={(e) => setSubCategory(e.target.value)}
                           maxLength={50}
+                          disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -177,7 +178,7 @@ const SubProduct = () => {
                         <input
                           required
                           type="text"
-                          placeholder="10"
+                          placeholder="Quantity"
                           value={quantity}
                           onChange={(e) => setQuantity(e.target.value)}
                           maxLength={50}
@@ -191,6 +192,7 @@ const SubProduct = () => {
                           placeholder="500"
                           value={actualCost}
                           onChange={(e) => setActualCost(e.target.value)}
+                          disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -202,6 +204,7 @@ const SubProduct = () => {
                           value={sellCost}
                           onChange={(e) => setSellCost(e.target.value)}
                           maxLength={50}
+                          disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -213,10 +216,11 @@ const SubProduct = () => {
                           value={gst}
                           onChange={(e) => setGst(e.target.value)}
                           maxLength={10}
+                          disabled={true}
                         />
                       </div>
                     </div>
-                    <button type="submit">Add/Update</button>
+                    <button type="submit">Update</button>
                   </form>
                 </div>
               </div>

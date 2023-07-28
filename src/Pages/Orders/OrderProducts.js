@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 // import { ProfileContext } from "../../App";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
@@ -15,10 +15,11 @@ import toast from "react-hot-toast";
 
 const OrderProducts = () => {
   const {id} = useParams();
+  // console.log(id)
   const [rows, setRows] = useState([]);
   // const { userName } = useContext(ProfileContext);
-  const newId = uuidv4();
-  const ng=`/subproduct/${newId}/${id}`
+  // const newId = uuidv4();
+  // const ng=`/subproduct/${newId}/${id}`
 
   async function getOrderProducts(orderId) {
     const orderCollectionRef = collection(db, "orders");
@@ -142,7 +143,7 @@ const OrderProducts = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        const g=`/subproduct/${params.row.id}/${params.row.parentId}`;
+        const g=`/subproduct/${params.row.id}/${id}`;
         return (
           <div className="cell_action_div">
             <Link
