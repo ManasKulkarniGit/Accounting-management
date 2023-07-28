@@ -8,7 +8,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
 import { orderProductsListTableColumns } from "./OrderProductsData";
 import "../../App.sass";
-import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
+import { collection, query, getDocs , deleteDoc , doc , where, updateDoc} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
 
@@ -89,31 +89,35 @@ const OrderProducts = () => {
   }, []);
 
 
-  function handleDelete(id) {
+  function handleDelete(subproductid) {
     // console.log(typeof(id),id)
-    const q = query(collection(db, "sub-product"), where("id", "==", id));
+    const q = query(collection(db, "orders"), where("id", "==", id));
     getDocs(q)
-      .then((querySnapshot) => {
-        // console.log("hiii")
-        // console.log(querySnapshot.empty)
-        if (!querySnapshot.empty) {
-          const document = querySnapshot.docs[0];
-          const documentRef = doc(db, "sub-product", document.id);
-          deleteDoc(documentRef)
+    .then((querySnapshot) => {
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((docg) => {
+          const documentRef = doc(db, "orders", docg.id);
+          const currentProducts = docg.data().products;
+
+          const updatedProducts = currentProducts.filter(
+            (product) => product.subproductId !== subproductid
+          );
+
+          updateDoc(documentRef, { products: updatedProducts })
             .then(() => {
-              toast.success("product deleted successfully");
-              setRows(rows.filter((row) => row.id !== id));
+              toast.success("Subproduct deleted successfully");
             })
             .catch((error) => {
-              console.error("Error deleting document:", error);
+              console.error("Error removing subproduct:", error);
             });
-        } else {
-          console.log("Document with the specified attribute not found.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error getting documents:", error);
-      });
+        });
+      } else {
+        console.log("Document with the specified attribute not found.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error getting documents:", error);
+    });
     
   }
 //   useEffect(() => {
@@ -143,7 +147,7 @@ const OrderProducts = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        const g=`/subproduct/${params.row.id}/${id}`;
+        const g=`/order/subproduct/update/${params.row.id}/${id}`;
         return (
           <div className="cell_action_div">
             <Link
@@ -151,7 +155,7 @@ const OrderProducts = () => {
               style={{ textDecoration: "none", color: "unset" }}
               className="view_btn"
             >
-              View
+              Update
             </Link>
             <div
               className="delete_btn"

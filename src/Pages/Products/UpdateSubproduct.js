@@ -196,7 +196,7 @@ const UpdateSubProduct = () => {
                           placeholder="500"
                           value={actualCost}
                           onChange={(e) => setActualCost(e.target.value)}
-                          disabled={true}
+                          // disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -208,7 +208,7 @@ const UpdateSubProduct = () => {
                           value={sellCost}
                           onChange={(e) => setSellCost(e.target.value)}
                           maxLength={50}
-                          disabled={true}
+                          // disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -220,7 +220,7 @@ const UpdateSubProduct = () => {
                           value={gst}
                           onChange={(e) => setGst(e.target.value)}
                           maxLength={10}
-                          disabled={true}
+                          // disabled={true}
                         />
                       </div>
                     </div>

@@ -11,8 +11,9 @@ import AddProducts from "./Pages/Products/AddProducts";
 import UpdateSubproduct from "./Pages/Products/UpdateSubproduct";
 import AddSubProduct from "./Pages/Products/AddSubProduct";
 import OrderProducts from "./Pages/Orders/OrderProducts";
+import OrderSubproductUpdate from "./Pages/Orders/OrderSubproductUpdate";
 import AddCategories from "./Pages/Categories/AddCategories";
-import Orders from "./Pages/Orders/Orders";
+// import Orders from "./Pages/Orders/Orders";
 import Order2 from "./Pages/Orders/Order2";
 import CustomerOrders from "./Pages/Orders/CustomerOrders";
 import Logout from "./Pages/Logout/Logout";
@@ -145,9 +146,12 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/logout" element={<Logout />} />
-                    <Route path="/orders">
+                    {/* <Route path="/orders">
                       <Route index element={<Orders />} />
                       <Route path="/orders/sales" element={<Sales />} />
+                    </Route> */}
+                    <Route path="/orders/sales">
+                      <Route index element={<Sales />} />
                     </Route>
                     <Route path="/users">
                       <Route index element={<Users />} />
@@ -169,6 +173,7 @@ function App() {
                     <Route path="/orderadd/:id" element={<Order2 />} />
                     <Route path="/order/:id" element={<Order/>} />
                     <Route path="/order/:id/products" element={<OrderProducts />} />
+                    <Route path="/order/subproduct/update/:subproductId/:orderId" element={<OrderSubproductUpdate />} />
                     <Route path="/product/:id" element={<SubProducts />} />
                     <Route path="/customer/:id/orders" element={<CustomerOrders />} />
                     <Route path="/units">

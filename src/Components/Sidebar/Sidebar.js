@@ -82,12 +82,12 @@ const Sidebar = () => {
               </li>
             </Link>
             <Link
-              to="/orders"
+              to="/orders/sales"
               style={{ textDecoration: "none", color: "unset" }}
             >
               <li>
                 <CreditCardIcon className="icon" />
-                <p>Orders</p>
+                <p>Sales</p>
               </li>
             </Link>
             <Link
