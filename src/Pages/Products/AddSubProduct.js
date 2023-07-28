@@ -20,25 +20,34 @@ const AddSubProduct = () => {
   const [actualCost, setActualCost] = useState("");
   const [sellCost, setSellCost] = useState("");
   const [gst, setGst] = useState("");
-  const [mainProduct, setMainProduct] = useState("");
+  const [mainProduct, setMainProduct] = useState([]);
 
 
-  async function getMainProduct(id){
-    const a=[];
-    const q = query(collection(db, "main-product"),where("id","==",id));
-    const queryt = await getDocs(q);
-    queryt.forEach((doc) => {
-        a.push(doc.data())
-    });
-    setMainProduct(a);
-  }
+  useEffect(() => {
+    const fetchData = async() => {
+
+        try {
+            const a=[]
+            const q = query(collection(db, "main-product"), where("id", "==", parentId));
+            const queryt = await getDocs(q);
+            queryt.forEach((doc) => {
+                a.push(doc.data())
+            });
+            setMainProduct(a[0])
+        } catch(err) {
+            console.error(err);
+        }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]) 
   
 
   function handleSubmit(e) {
         e.preventDefault();
-        getMainProduct(parentId);
-        // console.log("aalo");
-        // console.log(mainProduct)
+        console.log("aalo");
+        console.log(mainProduct)     
         const newData = {
             id : id,
             parentId: parentId,
