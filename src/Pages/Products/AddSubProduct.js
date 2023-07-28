@@ -12,7 +12,7 @@ import db from "../../firebase"
 import { collection, query, getDocs , where ,updateDoc ,doc, addDoc} from "firebase/firestore";
 import { useParams } from 'react-router-dom';
 
-const SubProduct = () => {
+const AddSubProduct = () => {
   const { id , parentId }=useParams();
   // const {useName} = useContext(ProfileContext);
   const [subCategory, setSubCategory] = useState("");
@@ -232,4 +232,4 @@ const SubProduct = () => {
   );
 };
 
-export default SubProduct;
+export default AddSubProduct;

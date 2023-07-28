@@ -18,7 +18,7 @@ const SubProducts = () => {
   const [rows, setRows] = useState([]);
   // const { userName } = useContext(ProfileContext);
   const newId = uuidv4();
-  const ng=`/subproduct/${newId}/${id}`
+  const ng=`/addsubproduct/${newId}/${id}`
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
