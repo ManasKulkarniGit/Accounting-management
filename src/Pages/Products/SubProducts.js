@@ -18,7 +18,11 @@ const SubProducts = () => {
   const [rows, setRows] = useState([]);
   // const { userName } = useContext(ProfileContext);
   const newId = uuidv4();
+<<<<<<< HEAD
   const ng=`/subproduct/add/${newId}/${id}`
+=======
+  const ng=`/addsubproduct/${newId}/${id}`
+>>>>>>> 455a7c1998634b9cc500e3978fb8727090ac4464
 
   function handleDelete(id) {
     // console.log(typeof(id),id)

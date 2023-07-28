@@ -23,6 +23,7 @@ import SubProducts from "./Pages/Products/SubProducts";
 import Addcustomer from "./Pages/Units/Addcustomer";
 import Customer from "./Pages/Units/Customer";
 import Order from "./Pages/Orders/Order";
+import AddSubProduct from "./Pages/Products/AddSubProduct";
 
 // Context for the theme settings and the functions to handle them
 export const LoaderContext = React.createContext();
@@ -157,8 +158,13 @@ function App() {
                       <Route path="/products/new" element={<AddProducts />} />
                     </Route>
                     <Route path="/products/:id"  element={<SubProducts/>} />
+<<<<<<< HEAD
                     <Route path="/subproduct/update/:id/:parentId"  element={<UpdateSubproduct/>} />
                     <Route path="/subproduct/add/:id/:parentId"  element={<AddSubProduct/>} />
+=======
+                    <Route path="/addsubproduct/:id/:parentId"  element={<AddSubProduct/>} />
+                    <Route path="/subproduct/:id/:parentId"  element={<SubProduct/>} />
+>>>>>>> 455a7c1998634b9cc500e3978fb8727090ac4464
                     <Route path="/categories">
                       <Route index element={<Categories />} />
                       <Route path="/categories/new" element={<AddCategories />} />
