@@ -9,10 +9,10 @@ import Navbar from "../../Components/Navbar/Navbar";
 import "../../Reusable Styling/AddItem.sass";
 import toast from 'react-hot-toast';
 import db from "../../firebase"
-import { collection, query, getDocs , where ,updateDoc ,doc, addDoc} from "firebase/firestore";
+import { collection, query, getDocs , where , addDoc} from "firebase/firestore";
 import { useParams } from 'react-router-dom';
 
-const SubProduct = () => {
+const AddSubProduct = () => {
   const { id , parentId }=useParams();
   // const {useName} = useContext(ProfileContext);
   const [subCategory, setSubCategory] = useState("");
@@ -20,98 +20,49 @@ const SubProduct = () => {
   const [actualCost, setActualCost] = useState("");
   const [sellCost, setSellCost] = useState("");
   const [gst, setGst] = useState("");
-  const [currentPost, setCurrentPost] = useState([]);
-  const inig=()=>{
-    if(currentPost.length !==0 ){
-        setSubCategory(currentPost.subCategory);
-        setQuantity(currentPost.quantity);
-        setActualCost(currentPost.actualCost);
-        setSellCost(currentPost.sellCost);
-        setGst(currentPost.gst);
-    }
+  const [mainProduct, setMainProduct] = useState("");
+
+
+  async function getMainProduct(id){
+    const a=[];
+    const q = query(collection(db, "main-product"),where("id","==",id));
+    const queryt = await getDocs(q);
+    queryt.forEach((doc) => {
+        a.push(doc.data())
+    });
+    setMainProduct(a);
   }
-  // const [userRows, setUserRows] = useState([]);
-  // const UUID = uuidv4();
+  
 
   function handleSubmit(e) {
         e.preventDefault();
-        const q = query(collection(db, "sub-product"), where("id", "==", id));
+        getMainProduct(parentId);
+        // console.log("aalo");
+        // console.log(mainProduct)
+        const newData = {
+            id : id,
+            parentId: parentId,
+            productName : mainProduct.productName,
+            subCategory: subCategory,
+            quantity: quantity,
+            actualCost: actualCost,
+            sellCost: sellCost,
+            gst: gst,
+        }
+        const subProductCollectionRef = collection(db,"sub-product");
+        addDoc(subProductCollectionRef, newData)
+        .then((docRef) => {
+            toast.success("new Sub Product added successfully")
+            setSubCategory("");
+            setQuantity("");
+            setActualCost("");
+            setSellCost("");
+            setGst("");
 
-        getDocs(q)
-        .then((querySnapshot) => {
-            if (!querySnapshot.empty) {
-            querySnapshot.forEach((docg) => {
-                const documentRef = doc(db, "sub-product", docg.id);
-                const newData = {
-                    subCategory:subCategory,
-                    actualCost:actualCost,
-                    sellCost:sellCost,
-                    gst:gst,
-                    id:id,
-                    parentId:parentId,
-                    quantity:quantity
-                };
-                updateDoc(documentRef, newData)
-                .then(() => {
-                    toast.success("Sub Product Updated successfully")
-                })
-                .catch((error) => {
-                    console.error("Error updating document:", error);
-                });
-            });
-            } else {
-                const usersCollectionRef = collection(db, "sub-product");
-                const newData = {
-                    subCategory:subCategory,
-                    actualCost:actualCost,
-                    sellCost:sellCost,
-                    gst:gst,
-                    id:id,
-                    parentId:parentId,
-                    quantity:quantity
-                };
-                addDoc(usersCollectionRef, newData)
-                .then(() => {
-                    toast.success("Sub Product Added successfully")
-                })
-                .catch((error)=>{
-                    console.error("Error Adding document:", error);
-                });
-            }
-        })
-        .catch((error) => {
-            console.error("Error getting documents:", error);
-        });
-
-
-    //   const newRow = {
-    //     id: uuidv4(),
-    //     productName:productName ,
-    //     category:category ,
-    //     brand:brand,
-    //     actualCost:actualCost,
-    //     sellCost:sellCost,
-    //     gst:gst,
-    //     quantity :quantity,
-    //     description:description,
-    //   };
-    //   const usersCollectionRef = collection(db, "products");
-    //   addDoc(usersCollectionRef, newRow)
-    //     .then((docRef) => {
-    //       toast.success("new staff added successfully")
-    //       setProductName("");
-    //       setCategory("");
-    //       setBrand("");
-    //       setActualCost("");
-    //       setSellCost("");
-    //       setgst("");
-    //       setQuantity("");
-    //       setDescription("");
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error adding new product:", error);
-    //     });
-      // setUserRows([...userRows, newRow]);
+          })
+          .catch((error) => {
+            console.error("Error adding new product:", error);
+          });
 };
   
 
@@ -119,32 +70,32 @@ const SubProduct = () => {
     document.title = "View Product | Admin Dashboard";
   }, []);
 
-  useEffect(() => {
-    const fetchData = async() => {
+//   useEffect(() => {
+//     const fetchData = async() => {
 
-        try {
-            const a=[]
-            const q = query(collection(db, "sub-product"), where("id", "==", id));
-            const queryt = await getDocs(q);
-            queryt.forEach((doc) => {
-                a.push(doc.data())
-            });
-            setCurrentPost(a[0])
-        } catch(err) {
-            console.error(err);
-        }
-    };
+//         try {
+//             const a=[]
+//             const q = query(collection(db, "sub-product"), where("id", "==", id));
+//             const queryt = await getDocs(q);
+//             queryt.forEach((doc) => {
+//                 a.push(doc.data())
+//             });
+//             setCurrentPost(a[0])
+//         } catch(err) {
+//             console.error(err);
+//         }
+//     };
 
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]) 
+//     fetchData();
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   },[]) 
 
-  useEffect(()=>{
-    if(currentPost.length !== 0){
-        inig();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[currentPost])
+//   useEffect(()=>{
+//     if(currentPost.length !== 0){
+//         inig();
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   },[currentPost])
 
   return (
     <>
@@ -170,7 +121,7 @@ const SubProduct = () => {
                           value={subCategory}
                           onChange={(e) => setSubCategory(e.target.value)}
                           maxLength={50}
-                          disabled={true}
+                        //   disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -192,7 +143,7 @@ const SubProduct = () => {
                           placeholder="500"
                           value={actualCost}
                           onChange={(e) => setActualCost(e.target.value)}
-                          disabled={true}
+                        //   disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -204,7 +155,7 @@ const SubProduct = () => {
                           value={sellCost}
                           onChange={(e) => setSellCost(e.target.value)}
                           maxLength={50}
-                          disabled={true}
+                        //   disabled={true}
                         />
                       </div>
                       <div className="form_input">
@@ -216,7 +167,7 @@ const SubProduct = () => {
                           value={gst}
                           onChange={(e) => setGst(e.target.value)}
                           maxLength={10}
-                          disabled={true}
+                        //   disabled={true}
                         />
                       </div>
                     </div>
@@ -232,4 +183,4 @@ const SubProduct = () => {
   );
 };
 
-export default SubProduct;
+export default AddSubProduct;

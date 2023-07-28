@@ -18,7 +18,7 @@ const SubProducts = () => {
   const [rows, setRows] = useState([]);
   // const { userName } = useContext(ProfileContext);
   const newId = uuidv4();
-  const ng=`/subproduct/${newId}/${id}`
+  const ng=`/subproduct/add/${newId}/${id}`
 
   function handleDelete(id) {
     // console.log(typeof(id),id)
@@ -74,7 +74,7 @@ const SubProducts = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        const g=`/subproduct/${params.row.id}/${params.row.parentId}`;
+        const g=`/subproduct/update/${params.row.id}/${params.row.parentId}`;
         return (
           <div className="cell_action_div">
             <Link
