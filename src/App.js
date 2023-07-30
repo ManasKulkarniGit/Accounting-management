@@ -24,6 +24,7 @@ import SubProducts from "./Pages/Products/SubProducts";
 import Addcustomer from "./Pages/Units/Addcustomer";
 import Customer from "./Pages/Units/Customer";
 import Order from "./Pages/Orders/Order";
+import AddOrder from "./Pages/Orders/AddOrder";
 // import AddSubProduct from "./Pages/Products/AddSubProduct";
 
 // Context for the theme settings and the functions to handle them
@@ -176,6 +177,7 @@ function App() {
                     <Route path="/order/subproduct/update/:subproductId/:orderId" element={<OrderSubproductUpdate />} />
                     <Route path="/product/:id" element={<SubProducts />} />
                     <Route path="/customer/:id/orders" element={<CustomerOrders />} />
+                    <Route path="/customer/:id/addorder" element={<AddOrder />} />
                     <Route path="/units">
                       <Route index element={<Units />} />
                       {/* <Route path="/categories/new" element={<AddCategories />} /> */}

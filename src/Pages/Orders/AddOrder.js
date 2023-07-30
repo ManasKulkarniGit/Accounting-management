@@ -1,6 +1,6 @@
 import React, { useState, useEffect, } from "react";
 // import { Link } from "react-router-dom";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 // import { ProfileContext } from "../../App";
@@ -12,15 +12,14 @@ import db from "../../firebase"
 import { collection, query, getDocs , where , addDoc} from "firebase/firestore";
 import { useParams } from 'react-router-dom';
 
-const AddSubProduct = () => {
-  const { id , parentId }=useParams();
+const AddOrder = () => {
+  const { id }=useParams();
   // const {useName} = useContext(ProfileContext);
-  const [subCategory, setSubCategory] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [actualCost, setActualCost] = useState("");
-  const [sellCost, setSellCost] = useState("");
-  const [gst, setGst] = useState("");
-  const [mainProduct, setMainProduct] = useState([]);
+  const [date, setDate] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [staffid, setStaffid] = useState("");
+  const [status, setStatus] = useState("");
+  const [customer, setCustomer] = useState([]);
 
 
   useEffect(() => {
@@ -28,12 +27,12 @@ const AddSubProduct = () => {
 
         try {
             const a=[]
-            const q = query(collection(db, "main-product"), where("id", "==", parentId));
+            const q = query(collection(db, "customers"), where("id", "==", id));
             const queryt = await getDocs(q);
             queryt.forEach((doc) => {
                 a.push(doc.data())
             });
-            setMainProduct(a[0])
+            setCustomer(a[0])
         } catch(err) {
             console.error(err);
         }
@@ -47,24 +46,23 @@ const AddSubProduct = () => {
   function handleSubmit(e) {
         e.preventDefault();    
         const newData = {
-            id : id,
-            parentId: parentId,
-            productName : mainProduct.productName,
-            subCategory: subCategory,
-            quantity: quantity,
-            actualCost: actualCost,
-            sellCost: sellCost,
-            gst: gst,
+            id : uuidv4(),
+            customer: id,
+            customername : customer.ownername,
+            date: date,
+            products: [],
+            paymentmethod : paymentMethod,
+            staffid : staffid,
+            status : status 
         }
-        const subProductCollectionRef = collection(db,"sub-product");
-        addDoc(subProductCollectionRef, newData)
+        const orderCollectionRef = collection(db,"orders");
+        addDoc(orderCollectionRef, newData)
         .then((docRef) => {
             toast.success("new Sub Product added successfully")
-            setSubCategory("");
-            setQuantity("");
-            setActualCost("");
-            setSellCost("");
-            setGst("");
+            setDate("");
+            setPaymentMethod("");
+            setStaffid("");
+            setStatus("");
 
           })
           .catch((error) => {
@@ -74,7 +72,7 @@ const AddSubProduct = () => {
   
 
   useEffect(() => {
-    document.title = "View Product | Admin Dashboard";
+    document.title = "New Order | Admin Dashboard";
   }, []);
 
 //   useEffect(() => {
@@ -111,7 +109,7 @@ const AddSubProduct = () => {
         <div className="dashboard_container_right_panel">
           <Navbar />
           <div className="add_item_title_div">
-            <h6>View Product</h6>
+            <h6>New Order</h6>
           </div>
           <div className="add_item_container">
             <div className="add_user_item_div_wrapper">
@@ -120,52 +118,52 @@ const AddSubProduct = () => {
                   <form onSubmit={handleSubmit}>
                     <div className="form_input_div">
                       <div className="form_input">
-                        <label>Sub Category</label>
+                        <label>Date</label>
                         <input
                           required
                           type="text"
-                          placeholder="50 kg"
-                          value={subCategory}
-                          onChange={(e) => setSubCategory(e.target.value)}
+                          placeholder="DD/MM/YYYY"
+                          value={date}
+                          onChange={(e) => setDate(e.target.value)}
                           maxLength={50}
                         //   disabled={true}
                         />
                       </div>
                       <div className="form_input">
-                        <label>Quantity</label>
+                        <label>Payment Method</label>
                         <input
                           required
                           type="text"
-                          placeholder="Quantity"
-                          value={quantity}
-                          onChange={(e) => setQuantity(e.target.value)}
+                          placeholder="online/cash"
+                          value={paymentMethod}
+                          onChange={(e) => setPaymentMethod(e.target.value)}
                           maxLength={50}
                         />
                       </div>
                       <div className="form_input">
-                        <label>Actual Cost</label>
+                        <label>Staff ID</label>
                         <input
                           required
                           type="text"
                           placeholder="500"
-                          value={actualCost}
-                          onChange={(e) => setActualCost(e.target.value)}
+                          value={staffid}
+                          onChange={(e) => setStaffid(e.target.value)}
                         //   disabled={true}
                         />
                       </div>
                       <div className="form_input">
-                        <label>Sell Cost</label>
+                        <label>Status</label>
                         <input
                           required
                           type="text"
-                          placeholder="800"
-                          value={sellCost}
-                          onChange={(e) => setSellCost(e.target.value)}
+                          placeholder="pending"
+                          value={status}
+                          onChange={(e) => setStatus(e.target.value)}
                           maxLength={50}
                         //   disabled={true}
                         />
                       </div>
-                      <div className="form_input">
+                      {/* <div className="form_input">
                         <label>GST %</label>
                         <input
                           required
@@ -176,7 +174,7 @@ const AddSubProduct = () => {
                           maxLength={10}
                         //   disabled={true}
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <button type="submit">Update</button>
                   </form>
@@ -190,4 +188,4 @@ const AddSubProduct = () => {
   );
 };
 
-export default AddSubProduct;
+export default AddOrder;

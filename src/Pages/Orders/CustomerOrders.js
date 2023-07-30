@@ -10,7 +10,7 @@ import "../../Pages/Orders/Orders.sass";
 import "../../Pages/Home/Home.sass";
 import { collection, query, getDocs, where } from "firebase/firestore";
 import db from "../../firebase"
-import { useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 
 
 const CustomerOrders = () => {
@@ -19,6 +19,7 @@ const CustomerOrders = () => {
   const { userName } = useContext(ProfileContext);
   // const [selectedRowId, setSelectedRowId] = useState(0)
   const [rows, setRows] = useState([]);
+  const ng = `/customer/${id}/addorder`
   // const navigate = useNavigate();
   
 
@@ -95,6 +96,9 @@ const CustomerOrders = () => {
                   tableRows={rows}
                 />
               </div>
+              <Link to={ng} style={{ textDecoration: "none", color: "unset" }}>
+                  <button className="view_btn">ADD</button>
+              </Link>
             </div>
           </div>
         </main>
