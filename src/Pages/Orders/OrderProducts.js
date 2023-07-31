@@ -200,6 +200,9 @@ const OrderProducts = () => {
           <Link to={`/orderadd/${id}`} style={{ textDecoration: "none", color: "unset" }}>
             <button className="view_btn">ADD</button>
           </Link>
+          <Link to={`/invoice/${id}`} style={{ textDecoration: "none", color: "unset" }}>
+            <button className="view_btn">Invoice</button>
+          </Link>
         </div>
       </main>
     </>
