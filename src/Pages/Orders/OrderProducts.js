@@ -11,6 +11,7 @@ import "../../App.sass";
 import { collection, query, getDocs , deleteDoc , doc , where, updateDoc} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
+import "./invoice.css"
 
 
 const OrderProducts = () => {
@@ -197,12 +198,14 @@ const OrderProducts = () => {
               height={680}
             />
           </UserTable>
-          <Link to={`/orderadd/${id}`} style={{ textDecoration: "none", color: "unset" }}>
-            <button className="view_btn">ADD</button>
-          </Link>
-          <Link to={`/invoice/${id}`} style={{ textDecoration: "none", color: "unset" }}>
-            <button className="view_btn">Invoice</button>
-          </Link>
+          <div className="btn-wrapper"> 
+            <Link to={`/orderadd/${id}`} style={{ textDecoration: "none", color: "unset" }}>
+              <button className="btn btn-primary w-md">ADD</button>
+            </Link>
+            <Link to={`/invoice/${id}`} style={{ textDecoration: "none", color: "unset" }}>
+              <button className="btn btn-primary w-md">INVOICE</button>
+            </Link>
+          </div>
         </div>
       </main>
     </>

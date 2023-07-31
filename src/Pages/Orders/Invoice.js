@@ -21,16 +21,43 @@ const Invoice = () => {
   // console.log(id)
   const [rows, setRows] = useState([]);
   const [tot, settot] = useState(0);
+  const [customer,setCustomer] = useState("customer");
 
-  const downloadPdf = () => {
-    const page = document.querySelector(".toinvoice");
-    html2PDF(page, {
-      jsPDF: {
-        format: "a4",
-      },
-      imageType: "image/jpeg",
-      output: "Report.pdf",
-    });
+  // const downloadPdf = () => {
+  //   const page = document.querySelector(".toinvoice");
+  //   html2PDF(page, {
+  //     jsPDF: {
+  //       format: "a4",
+  //     },
+  //     imageType: "image/jpeg",
+  //     output: "Report.pdf",
+  //   });
+  // };
+
+  const downloadPdf = async () => {
+    try {
+      // Hide the download button temporarily
+      const downloadButton = document.querySelector(".download-button");
+      downloadButton.style.display = "none";
+  
+      // Wait for a brief moment to ensure the button is hidden before generating the PDF
+      await new Promise((resolve) => setTimeout(resolve, 100));
+  
+      // Generate the PDF
+      const page = document.querySelector(".toinvoice");
+      html2PDF(page, {
+        jsPDF: {
+          format: "a4",
+        },
+        imageType: "image/jpeg",
+        output: `${id}.pdf`,
+      });
+  
+      // Show the download button again after generating the PDF
+      downloadButton.style.display = "block";
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
   };
 
   // const { userName } = useContext(ProfileContext);
@@ -47,6 +74,18 @@ const Invoice = () => {
       return a[0]
   }
 
+
+  async function getcustomer(id) {
+    const a=[]
+      const q = query(collection(db, "customers"), where("id", "==", id));
+      const queryt = await getDocs(q);
+      queryt.forEach((doc) => {
+          a.push(doc.data())
+      });
+      return a[0]
+  }
+
+
   async function getSubproduct(th) {
       const a=[]
       const q = query(collection(db, "sub-product"), where("id", "==", th));
@@ -61,6 +100,8 @@ const Invoice = () => {
     
       const td=[]
       const order = await getorder();
+      const customerData = await getcustomer(order.customer);
+      setCustomer(customerData);
       let g=0;
       // console.log(order)
       // if (order.length > 0) {
@@ -129,11 +170,11 @@ const Invoice = () => {
                               <div className="col-sm-6">
                                   <div className="text-muted">
                                       <h5 className="font-size-16 mb-3">Billed To:</h5>
-                                      {rows[0].customer}
-                                      {/* <h5 class="font-size-15 mb-2">Preston Miller</h5>
-                                      <p class="mb-1">4068 Post Avenue Newfolden, MN 56738</p>
-                                      <p class="mb-1">PrestonMiller@armyspy.com</p>
-                                      <p>001-234-5678</p> */}
+                                      {/* {customer.ownername} */}
+                                      <h5 class="font-size-15 mb-2">{customer.shopname}</h5>
+                                      <p class="mb-1">Owner    : {customer.ownername}</p>
+                                      <p class="mb-1">Address  : {customer.address}</p>
+                                      <p class="mb-1">GSTIN/UIN: {customer.gst}</p>
                                   </div>
                               </div>
                               
@@ -187,17 +228,17 @@ const Invoice = () => {
  
                                           
                                           <tr>
-                                              <th scope="row" colSpan="4" class="border-0 text-end">Total</th>
-                                              <td className="border-0 text-end"><h4 class="m-0 fw-semibold">{tot}</h4></td>
+                                              <th scope="row" colSpan="4" className="border-0 text-end">Total</th>
+                                              <td className="border-0 text-end"><h4 className="m-0 fw-semibold">{tot}</h4></td>
                                           </tr>
                                           
                                       </tbody>
                                   </table>
                                 </div>
-                                <div class="d-print-none mt-4">
-                            <div class="float-end">
+                                <div className="d-print-none mt-4">
+                            <div className="float-end">
                                 
-                                <button onClick={downloadPdf} class="btn btn-primary w-md">Download</button>
+                                <button onClick={downloadPdf} className="btn btn-primary w-md download-button">Download</button>
                             </div>
                           </div>
 

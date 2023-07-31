@@ -13,3 +13,8 @@
     border: 0 solid rgba(0,0,0,.125);
     border-radius: 1rem;
 }
+
+.btn-wrapper {
+    display: flex;
+    gap: 10px;
+}

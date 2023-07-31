@@ -4,7 +4,7 @@ import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Users from "./Pages/Users/Users";
 import Products from "./Pages/Products/Products";
-import Categories from "./Pages/Categories/Categories";
+// import Categories from "./Pages/Categories/Categories";
 import Units from "./Pages/Units/Units";
 import AddUsers from "./Pages/Users/AddUsers";
 import AddProducts from "./Pages/Products/AddProducts";
@@ -12,7 +12,7 @@ import UpdateSubproduct from "./Pages/Products/UpdateSubproduct";
 import AddSubProduct from "./Pages/Products/AddSubProduct";
 import OrderProducts from "./Pages/Orders/OrderProducts";
 import OrderSubproductUpdate from "./Pages/Orders/OrderSubproductUpdate";
-import AddCategories from "./Pages/Categories/AddCategories";
+// import AddCategories from "./Pages/Categories/AddCategories";
 // import Orders from "./Pages/Orders/Orders";
 import Order2 from "./Pages/Orders/Order2";
 import CustomerOrders from "./Pages/Orders/CustomerOrders";
@@ -166,10 +166,10 @@ function App() {
                     <Route path="/products/:id"  element={<SubProducts/>} />
                     <Route path="/subproduct/update/:id/:parentId"  element={<UpdateSubproduct/>} />
                     <Route path="/subproduct/add/:id/:parentId"  element={<AddSubProduct/>} />
-                    <Route path="/categories">
+                    {/* <Route path="/categories">
                       <Route index element={<Categories />} />
                       <Route path="/categories/new" element={<AddCategories />} />
-                    </Route>
+                    </Route> */}
                     <Route path="/customer/new" element={<Addcustomer />} />
                     <Route path="/customer/:id" element={<Customer />} />
                     <Route path="/orderadd/:id" element={<Order2 />} />

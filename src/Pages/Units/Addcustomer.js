@@ -161,7 +161,7 @@ const Addcustomer = () => {
                           placeholder="address"
                           value={address}
                           onChange={(e) => setaddress(e.target.value)}
-                          maxLength={10}
+                          maxLength={50}
                         />
                       </div>
                       <div className="form_input">

@@ -63,7 +63,7 @@ const Sidebar = () => {
                 <p>Staff</p>
               </li>
             </Link>
-            <Link
+            {/* <Link
               to="/categories"
               style={{ textDecoration: "none", color: "unset" }}
             >
@@ -71,7 +71,7 @@ const Sidebar = () => {
                 <PersonOutlineIcon className="icon" />
                 <p>Categories</p>
               </li>
-            </Link>
+            </Link> */}
             <Link
               to="/products"
               style={{ textDecoration: "none", color: "unset" }}

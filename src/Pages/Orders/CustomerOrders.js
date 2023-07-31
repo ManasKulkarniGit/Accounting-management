@@ -97,7 +97,7 @@ const CustomerOrders = () => {
                 />
               </div>
               <Link to={ng} style={{ textDecoration: "none", color: "unset" }}>
-                  <button className="view_btn">ADD</button>
+                  <button className="btn btn-primary">ADD</button>
               </Link>
             </div>
           </div>
