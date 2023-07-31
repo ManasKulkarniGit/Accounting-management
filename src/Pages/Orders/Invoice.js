@@ -68,7 +68,7 @@ const Invoice = () => {
               console.log(mainProduct)
               const fg= await getSubproduct(mainProduct.subproductId)
               const total = (mainProduct.quantity*fg.sellCost).toString();
-              g+=total
+              g+=parseInt(total)
               let d={
                 customer:order.customername,
                 pname:fg.productName,
@@ -80,7 +80,7 @@ const Invoice = () => {
               }
               td.push(d)
         }
-      settot(g)
+      settot(g.toString())
       // console.log(td)
       setRows(td)
   }
