@@ -1,6 +1,6 @@
 import React, { useState, useEffect, } from "react";
 // import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 // import { ProfileContext } from "../../App";
@@ -20,6 +20,7 @@ const AddOrder = () => {
   const [staffid, setStaffid] = useState("");
   const [status, setStatus] = useState("");
   const [customer, setCustomer] = useState([]);
+  const [count,SetCount]= useState("");
 
 
   useEffect(() => {
@@ -41,12 +42,52 @@ const AddOrder = () => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]) 
+
+
+
+  useEffect(() => {
+    const fetchData2 = async() => {
+
+        try {
+          const q = query(collection(db, "orders"), where("customer", "==", id));
+          const querySnapshot = await getDocs(q);
+          const count = querySnapshot.size;
+          SetCount(count);
+        } catch(err) {
+            console.error(err);
+        }
+    };
+
+    fetchData2();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]) 
+
+
+  // async function countDoc(customerId) {
+  //   try {
+  //     const q = query(collection(db, "orders"), where("customer", "==", customerId));
+  //     const querySnapshot = await getDocs(q);
+  //     const count = querySnapshot.size;
+  //     return count;
+  //   } catch (error) {
+  //     console.error("Error counting documents:", error);
+  //   }
+  // }
+
+
+  function shortShopName(shopName) {
+    const words = shopName.split(" ");
+    const short = words.map((word) => word.charAt(0).toUpperCase()).join("");
+    return short;
+  }
   
 
   function handleSubmit(e) {
-        e.preventDefault();    
+        e.preventDefault();
+        const short = shortShopName(customer.shopname);  
+        const newid = `${short}2023${count+1}`;  
         const newData = {
-            id : uuidv4(),
+            id : newid,
             customer: id,
             customername : customer.ownername,
             date: date,
