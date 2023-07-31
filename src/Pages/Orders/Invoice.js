@@ -69,9 +69,10 @@ const Invoice = () => {
               const fg= await getSubproduct(mainProduct.subproductId)
               const total = (mainProduct.quantity*fg.sellCost).toString();
               g+=parseInt(total)
+              let u=fg.productName+"-"+fg.subCategory
               let d={
                 customer:order.customername,
-                pname:fg.productName,
+                pname:u,
                 sellcost:fg.sellCost,
                 quantity:mainProduct.quantity,
                 total:total,
