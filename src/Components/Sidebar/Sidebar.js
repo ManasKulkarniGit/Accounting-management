@@ -9,7 +9,7 @@ import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DownloadIcon from "@mui/icons-material/Download";
-import html2PDF from "jspdf-html2canvas";
+// import html2PDF from "jspdf-html2canvas";
 import "../../App.sass";
 import "./Sidebar.sass";
 
@@ -30,16 +30,16 @@ const Sidebar = () => {
   }
 
   // JsPDF-Html2Canvas function to download the targeted screenshot as pdf
-  const downloadPdf = () => {
-    const page = document.querySelector(".dashboard_container_right_panel");
-    html2PDF(page, {
-      jsPDF: {
-        format: "a4",
-      },
-      imageType: "image/jpeg",
-      output: "Report.pdf",
-    });
-  };
+  // const downloadPdf = () => {
+  //   const page = document.querySelector(".dashboard_container_right_panel");
+  //   html2PDF(page, {
+  //     jsPDF: {
+  //       format: "a4",
+  //     },
+  //     imageType: "image/jpeg",
+  //     output: "Report.pdf",
+  //   });
+  // };
 
   return (
     <>
@@ -136,7 +136,7 @@ const Sidebar = () => {
                 <p>Add Customer</p>
               </li>
             </Link>
-            <Link
+            {/* <Link
               to=""
               style={{ textDecoration: "none", color: "unset" }}
               onClick={downloadPdf}
@@ -145,7 +145,7 @@ const Sidebar = () => {
                 <DownloadIcon className="icon" />
                 <p>Download Report</p>
               </li>
-            </Link>
+            </Link> */}
           </ul>
           <div className="sidebar_menu_color_option_div">
             <h6 className="mb-0">Color Theme</h6>
