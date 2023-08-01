@@ -115,6 +115,7 @@ const Invoice = () => {
                 customer:order.customername,
                 pname:u,
                 sellcost:fg.sellCost,
+                gst:fg.gst,
                 quantity:mainProduct.quantity,
                 total:total,
                 id:order.id,
@@ -203,6 +204,7 @@ const Invoice = () => {
                                           <tr>
                                               <th style={{width: "70px"}}>No.</th>
                                               <th>Item</th>
+                                              <th>GST %</th>
                                               <th>Price</th>
                                               <th>Quantity</th>
                                               <th className="text-end" style={{width: "120px"}}>Total</th>
@@ -219,6 +221,7 @@ const Invoice = () => {
                                                       {/* <p class="text-muted mb-0">Watch, Black</p> */}
                                                   </div>
                                               </td>
+                                              <td>{row.gst}</td>
                                               <td>{row.sellcost}</td>
                                               <td>{row.quantity}</td>
                                               <td className="text-end">{row.total}</td>
