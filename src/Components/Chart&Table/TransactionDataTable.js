@@ -10,7 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import "../../Reusable Styling/Table.sass";
-import { collection, query, getDocs , deleteDoc , doc , where} from "firebase/firestore";
+import { collection, query, getDocs , deleteDoc , doc , where, updateDoc} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -35,7 +35,8 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
     "Payment Method",
     "Status",
     "Delete",
-    "View Products"
+    "View Products",
+    "Change Status",
   ];
 
   function handleDelete(id) {
@@ -65,6 +66,38 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
       });
     
   }
+
+  function handleUpdateStatus(id, newStatus) {
+    const q = query(collection(db, "orders"), where("id", "==", id));
+    getDocs(q)
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          const document = querySnapshot.docs[0];
+          const documentRef = doc(db, "orders", document.id);
+  
+          // Update the status field in the document with the new status
+          updateDoc(documentRef, { status: newStatus })
+            .then(() => {
+              toast.success("Order status updated successfully");
+              // Update the local state to reflect the new status
+              seta((prevOrders) =>
+                prevOrders.map((order) =>
+                  order.id === id ? { ...order, status: newStatus } : order
+                )
+              );
+            })
+            .catch((error) => {
+              console.error("Error updating document:", error);
+            });
+        } else {
+          console.log("Document with the specified attribute not found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting documents:", error);
+      });
+  }
+  
 
   return (
     <div
@@ -151,6 +184,19 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
                     >
                       View
                     </Link>
+                </TableCell>
+                <TableCell className="table_cell" sx={{ p: 1 }}>
+                <select
+                    value={row.status}
+                    onChange={(e) => handleUpdateStatus(row.id, e.target.value)}
+                >
+                  <option value="pending">Pending</option>
+                  <option value="inprocess">Inprocess</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="completed">Completed</option>
+                    {/* Add more status options as needed */}
+                </select>
                 </TableCell>
               </TableRow>
             ))}
