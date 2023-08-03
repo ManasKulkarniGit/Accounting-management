@@ -3,6 +3,7 @@ import React, { useState, useEffect, } from "react";
 // import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
+// import { TextField } from "@mui/material";
 // import { ProfileContext } from "../../App";
 // import ListInTable from "../../Reusable Components/DataTable";
 // import { userListTableColumns } from "./AddUsersData";
@@ -11,6 +12,11 @@ import toast from 'react-hot-toast';
 import db from "../../firebase"
 import { collection, query, getDocs , where , addDoc} from "firebase/firestore";
 import { useParams } from 'react-router-dom';
+// import { DatePicker, LocalizationProvider } from "@mui/lab";
+// import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import format from "date-fns/format";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddOrder = () => {
   const { id }=useParams();
@@ -22,6 +28,10 @@ const AddOrder = () => {
   const [customer, setCustomer] = useState([]);
   const [count,SetCount]= useState("");
 
+
+  // const handleDateChange = (date) => {
+  //   setDate(date);
+  // };
 
   useEffect(() => {
     const fetchData = async() => {
@@ -85,12 +95,14 @@ const AddOrder = () => {
   function handleSubmit(e) {
         e.preventDefault();
         const short = shortShopName(customer.shopname);  
-        const newid = `${short}2023${count+1}`;  
+        const newid = `${short}2023${count+1}`;
+        // const dateString = date.toString().substring(0,10);
+        const dateString = format(date,"dd/MM/yyyy");  
         const newData = {
             id : newid,
             customer: id,
             customername : customer.ownername,
-            date: date,
+            date: dateString,
             products: [],
             paymentmethod : paymentMethod,
             staffid : staffid,
@@ -160,7 +172,7 @@ const AddOrder = () => {
                     <div className="form_input_div">
                       <div className="form_input">
                         <label>Date</label>
-                        <input
+                        {/* <input
                           required
                           type="text"
                           placeholder="DD/MM/YYYY"
@@ -168,7 +180,14 @@ const AddOrder = () => {
                           onChange={(e) => setDate(e.target.value)}
                           maxLength={50}
                         //   disabled={true}
+                        /> */}.
+                        <DatePicker
+                          showIcon
+                          selected={date}
+                          onChange={(date) => setDate(date)}
+                          dateFormat="dd/MM/yyyy"
                         />
+                        
                       </div>
                       <div className="form_input">
                         <label>Payment Method</label>
