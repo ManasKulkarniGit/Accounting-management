@@ -41,8 +41,13 @@ const OrderSubproductUpdate = () => {
 
   function handleSubmit(e) {
         e.preventDefault();
-        console.log(orderId);
-        console.log(subproductId);
+        // console.log(orderId);
+        // console.log(subproductId);
+
+        if(isNaN(quantity)){
+          alert("Quantity must be a number");
+        }
+
         const q = query(collection(db, "orders"), where("id", "==", orderId));
 
         getDocs(q)

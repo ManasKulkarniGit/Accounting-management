@@ -18,7 +18,7 @@ const AddOrder = () => {
   const [date, setDate] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [staffid, setStaffid] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("pending");
   const [customer, setCustomer] = useState([]);
   const [count,SetCount]= useState("");
 
@@ -201,7 +201,7 @@ const AddOrder = () => {
                           value={status}
                           onChange={(e) => setStatus(e.target.value)}
                           maxLength={50}
-                        //   disabled={true}
+                          disabled={true}
                         />
                       </div>
                       {/* <div className="form_input">

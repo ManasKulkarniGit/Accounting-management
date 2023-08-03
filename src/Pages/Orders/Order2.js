@@ -41,6 +41,11 @@ const Order2 = () => {
 
   function handleSubmit(e) {
         e.preventDefault();
+
+        if(isNaN(quantity)){
+          alert("Quantity must be a number");
+        }
+
         const q = query(collection(db, "orders"), where("id", "==", id));
 
         getDocs(q)

@@ -45,7 +45,25 @@ const AddSubProduct = () => {
   
 
   function handleSubmit(e) {
-        e.preventDefault();    
+        e.preventDefault();
+        
+        if(isNaN(quantity)){
+          alert("Quantity must be a number");
+        }
+
+        if(isNaN(actualCost)){
+          alert("Actual Cost must be a number");
+        }
+
+        if(isNaN(sellCost)){
+          alert("Sell Cost must be a number");
+        }
+
+        if(isNaN(gst)){
+          alert("Gst must be a number");
+        }
+
+
         const newData = {
             id : id,
             parentId: parentId,

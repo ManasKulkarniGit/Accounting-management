@@ -39,6 +39,19 @@ const Addcustomer = () => {
         alert("Please fill in all fields");
         return;
       }
+
+      if (!email.includes("@")) {
+        alert("Email must be include @...");
+        return;
+      }
+
+      if (isNaN(contact)) {
+        alert("Contact no must be number.");
+        return;
+      } else if (contact.length !== 10) {
+        alert("Contact number should be 10 digits");
+        return;
+      }
       
       const newRow = {
         id: uuidv4(),
@@ -139,7 +152,7 @@ const Addcustomer = () => {
                           placeholder="contact"
                           value={contact}
                           onChange={(e) => setcontact(e.target.value)}
-                          maxLength={50}
+                          maxLength={10}
                         />
                       </div>
                       <div className="form_input">
