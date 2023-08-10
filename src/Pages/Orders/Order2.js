@@ -46,6 +46,37 @@ const Order2 = () => {
           alert("Quantity must be a number");
         }
 
+        let tmp = query(collection(db, "sub-product"), where("id", "==", subproductId));
+        getDocs(tmp)
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+            querySnapshot.forEach((docg) => {
+                const documentRef = doc(db, "sub-product", docg.id);
+                let oq=parseInt(docg.data().quantity)
+                let nq=oq-parseInt(quantity)
+                if(nq >=0){
+                  updateDoc(documentRef, {quantity : nq.toString()})
+                  .then(() => {
+                      console.log("product updated")
+                  })
+                  .catch((error) => {
+                      console.error("Error updating document:", error);
+                  });
+                }
+                else{
+                  alert("stock unavailable")
+                  return;
+                }
+            });
+            } else {
+              console.log("Document with the specified attribute not found.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error getting documents:", error);
+        });
+
+
         const q = query(collection(db, "orders"), where("id", "==", id));
 
         getDocs(q)
@@ -54,14 +85,6 @@ const Order2 = () => {
             querySnapshot.forEach((docg) => {
                 const documentRef = doc(db, "orders", docg.id);
                 const newData = {
-                    // customer:customer,
-                    // date:date,
-                    // id:id,
-                    // ordername:Product,
-                    // paymentmethod:paym,
-                    // quantity:quantity,
-                    // staffid:staff,
-                    // status:status
                     subproductId:subproductId,
                     quantity : quantity
                 };
@@ -70,13 +93,14 @@ const Order2 = () => {
                     toast.success("Product Updated successfully")
                     setquantity("");
                     setSubProductId("");
+                   
                 })
                 .catch((error) => {
                     console.error("Error updating document:", error);
                 });
             });
             } else {
-            console.log("Document with the specified attribute not found.");
+              console.log("Document with the specified attribute not found.");
             }
         })
         .catch((error) => {

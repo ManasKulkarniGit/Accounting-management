@@ -24,7 +24,7 @@ const Card = ({ type, backgroundColor }) => {
     case "orders":
       data = {
         title: "Total Orders",
-        link: "/orders",
+        link: "/orders/sales",
         linkName: "See all orders",
         dataTitle:
           "Total no of orders shipped including free gifts for customer acquisition.",
