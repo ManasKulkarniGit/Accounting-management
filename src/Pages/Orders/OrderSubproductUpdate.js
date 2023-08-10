@@ -62,12 +62,71 @@ const OrderSubproductUpdate = () => {
               
               const currentProducts = docg.data().products;
               const productIndex = currentProducts.findIndex((product) => product.subproductId === subproductId);
-    
+              
+              
               if (productIndex !== -1) {
                 const updatedProducts = currentProducts.map((product, index) =>
                   index === productIndex ? { ...product, quantity: quantity } : product
                 );
-    
+                let t=currentProducts.filter((product) => product.subproductId === subproductId);
+                let tprice=t[0].quantity
+                if(quantity>tprice){
+                  let tmp = query(collection(db, "sub-product"), where("id", "==", subproductId));
+                  getDocs(tmp)
+                  .then((querySnapshot) => {
+                      if (!querySnapshot.empty) {
+                      querySnapshot.forEach((docg) => {
+                          const documentRef = doc(db, "sub-product", docg.id);
+                          let oq=parseInt(docg.data().quantity)
+                          let nq=oq-(parseInt(quantity)-parseInt(tprice))
+                          if(nq >=0){
+                            updateDoc(documentRef, {quantity : nq.toString()})
+                            .then(() => {
+                                console.log("product updated")
+                            })
+                            .catch((error) => {
+                                console.error("Error updating document:", error);
+                            });
+                          }
+                          else{
+                            alert("stock unavailable")
+                            return;
+                          }
+                      });
+                      } else {
+                        console.log("Document with the specified attribute not found.");
+                      }
+                  })
+                  .catch((error) => {
+                      console.error("Error getting documents:", error);
+                  });
+
+                }
+                else if(quantity < tprice){
+                  let tmp = query(collection(db, "sub-product"), where("id", "==", subproductId));
+                  getDocs(tmp)
+                  .then((querySnapshot) => {
+                      if (!querySnapshot.empty) {
+                      querySnapshot.forEach((docg) => {
+                          const documentRef = doc(db, "sub-product", docg.id);
+                          let oq=parseInt(docg.data().quantity)
+                          let nq=oq+(parseInt(tprice)-parseInt(quantity))
+                            updateDoc(documentRef, {quantity : nq.toString()})
+                            .then(() => {
+                                console.log("product updated")
+                            })
+                            .catch((error) => {
+                                console.error("Error updating document:", error);
+                            });
+                      });
+                      } else {
+                        console.log("Document with the specified attribute not found.");
+                      }
+                  })
+                  .catch((error) => {
+                      console.error("Error getting documents:", error);
+                  });
+                }
                 updateDoc(documentRef, { products: updatedProducts })
                   .then(() => {
                     toast.success("Product quantity updated successfully");
