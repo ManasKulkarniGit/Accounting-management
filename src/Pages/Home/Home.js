@@ -55,10 +55,10 @@ const Home = () => {
                 <div className="summary_cards_container">
                   <SummaryCards />
                 </div>
-                <div className="lists_container">
+                {/* <div className="lists_container">
                   <h4 className="p-2">Latest Tranaction</h4>
                   <TransactionDataTable tableRows={transactionTableData} />
-                </div>
+                </div> */}
               </div>
             </main>
           </motion.div>

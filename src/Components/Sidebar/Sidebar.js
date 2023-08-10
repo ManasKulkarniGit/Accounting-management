@@ -8,7 +8,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import DownloadIcon from "@mui/icons-material/Download";
+// import DownloadIcon from "@mui/icons-material/Download";
 // import html2PDF from "jspdf-html2canvas";
 import "../../App.sass";
 import "./Sidebar.sass";

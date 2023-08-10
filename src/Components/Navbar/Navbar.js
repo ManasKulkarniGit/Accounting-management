@@ -5,8 +5,8 @@ import { generateRandomTotal } from "../../Reusable Components/Function";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+// import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+// import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import "./Navbar.sass";
@@ -15,8 +15,8 @@ const Navbar = () => {
   const { handleDarkMode } = useContext(ThemeContext);
   const { userName, profilePic } = useContext(ProfileContext);
   const [menu, setMenu] = useState(false);
-  const [readNotification, setReadNotification] = useState(false);
-  const [readMessage, setReadMessage] = useState(false);
+  // const [readNotification, setReadNotification] = useState(false);
+  // const [readMessage, setReadMessage] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
   const [profile, setProfile] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -41,23 +41,23 @@ const Navbar = () => {
       .setAttribute("style", `${menu ? "" : "display: block"}`);
   }
 
-  // Dummy read notification
-  const notifications = document.querySelectorAll(".count_notification");
-  function handleNotification() {
-    setReadNotification(!readNotification);
-    notifications.forEach((notification) => {
-      notification.style.display = "none";
-    });
-  }
+  // // Dummy read notification
+  // const notifications = document.querySelectorAll(".count_notification");
+  // function handleNotification() {
+  //   setReadNotification(!readNotification);
+  //   notifications.forEach((notification) => {
+  //     notification.style.display = "none";
+  //   });
+  // }
 
   // Dummy read message
-  const messages = document.querySelectorAll(".count_message");
-  function handleMessage() {
-    setReadMessage(!readMessage);
-    messages.forEach((message) => {
-      message.style.display = "none";
-    });
-  }
+  // const messages = document.querySelectorAll(".count_message");
+  // function handleMessage() {
+  //   setReadMessage(!readMessage);
+  //   messages.forEach((message) => {
+  //     message.style.display = "none";
+  //   });
+  // }
 
   // Handle user profile menu
   const adminProfileDiv = document.querySelector(".admin_profile_div");
@@ -125,14 +125,14 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="search_and_settings_div">
-          <div className="search_div">
+          {/* <div className="search_div">
             <input
               type="text"
               placeholder="Search..."
               className="search_input"
             />
             <SearchIcon />
-          </div>
+          </div> */}
           <div className="items_div_wrapper">
             <div className="items_div">
               <div className="item" onClick={handleProfile}>
@@ -143,7 +143,7 @@ const Navbar = () => {
                 <DarkModeOutlinedIcon className="icon" />
                 <p className="mb-0 mx-1">Toggle Theme</p>
               </div>
-              <div
+              {/* <div
                 className="item notification_item"
                 onClick={handleNotification}
               >
@@ -155,8 +155,8 @@ const Navbar = () => {
                     Consider you have read this notification.
                   </p>
                 )}
-              </div>
-              <div className="item" onClick={handleMessage}>
+              </div> */}
+              {/* <div className="item" onClick={handleMessage}>
                 <ChatBubbleOutlineOutlinedIcon className="icon" />
                 <div className="counter count_message">2</div>
                 <p className="mb-0 mx-1">Messages</p>
@@ -175,7 +175,7 @@ const Navbar = () => {
                     </p>
                   </>
                 )}
-              </div>
+              </div> */}
             </div>
             {popup && (
               <div className="welcome_popup_div">
@@ -208,7 +208,7 @@ const Navbar = () => {
                   height="20px"
                 />
               </div>
-              <div className="admin_info_text_div">
+              {/* <div className="admin_info_text_div">
                 <p className="mb-1" style={{ borderBottom: "1px solid #888" }}>
                   Management records
                 </p>
@@ -233,7 +233,7 @@ const Navbar = () => {
                   {generateRandomTotal(10000).percentageCalculator}% of Targeted
                   Sales
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
