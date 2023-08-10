@@ -74,7 +74,8 @@ function App() {
     if (storedProfilePic) {
       setProfilePic(storedProfilePic);
     } else {
-      setProfilePic("https://sachinsamal005.netlify.app/img/sachin-samal.png");
+      setProfilePic("/admin.jpeg");
+      // setProfilePic("https://sachinsamal005.netlify.app/img/sachin-samal.png");
     }
 
     // Retrieve the selected theme from local storage and set

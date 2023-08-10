@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext, ProfileContext } from "../../App";
-import { generateRandomTotal } from "../../Reusable Components/Function";
+// import { generateRandomTotal } from "../../Reusable Components/Function";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 // import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 // import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
