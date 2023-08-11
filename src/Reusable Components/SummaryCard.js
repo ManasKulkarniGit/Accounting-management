@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+
 
 const SummaryCard = ({
   summaryTitle,
@@ -12,10 +11,6 @@ const SummaryCard = ({
   summaryDescriptionTitle,
   summaryTotal,
   summaryDescriptionText,
-  summaryStartTime,
-  summaryStartTotal,
-  summaryEndTime,
-  summaryEndTotal,
 }) => {
   return (
     <>
@@ -25,7 +20,7 @@ const SummaryCard = ({
           <MoreVertIcon fontSize="small" />
         </div>
         <div className="summary_card_div_bottom">
-          <div className="summary_card_circular_progressbar">
+          {/* <div className="summary_card_circular_progressbar">
             <CircularProgressbar
               value={summaryPercentage}
               text={`${summaryPercentage}%`}
@@ -38,33 +33,13 @@ const SummaryCard = ({
                 strokeLinecap: "butt",
               })}
             />
-          </div>
+          </div> */}
           <div className="summary_card_description">
             <h5>{summaryDescriptionTitle}</h5>
             <p className="amount mb-0">{`${summaryTotal}`}</p>
             <p className="mb-0" style={{ fontSize: "12px" }}>
               {summaryDescriptionText}
             </p>
-          </div>
-          <div className="summary_card_summary">
-            <div className="summary_item">
-              <div className="summary_item_title">
-                <h6>{summaryStartTime}</h6>
-              </div>
-              <div className="summary_item_result negative">
-                <KeyboardArrowDownIcon fontSize="small" />
-                <p className="resultAmount mb-0">{summaryStartTotal}</p>
-              </div>
-            </div>
-            <div className="summary_item">
-              <div className="summary_item_title">
-                <h6>{summaryEndTime}</h6>
-              </div>
-              <div className="summary_item_result positive">
-                <KeyboardArrowUpOutlinedIcon fontSize="small" />
-                <p className="resultAmount mb-0">{summaryEndTotal}</p>
-              </div>
-            </div>
           </div>
         </div>
       </SummaryCardDiv>

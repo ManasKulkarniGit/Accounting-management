@@ -97,12 +97,12 @@ const AddOrder = () => {
         const short = shortShopName(customer.shopname);  
         const newid = `${short}2023${count+1}`;
         // const dateString = date.toString().substring(0,10);
-        const dateString = format(date,"dd/MM/yyyy");  
+        // const dateString = format(date,"dd/MM/yyyy");  
         const newData = {
             id : newid,
             customer: id,
             customername : customer.ownername,
-            date: dateString,
+            date: date,
             products: [],
             paymentmethod : paymentMethod,
             staffid : staffid,
@@ -184,7 +184,8 @@ const AddOrder = () => {
                         <DatePicker
                           showIcon
                           selected={date}
-                          onChange={(date) => setDate(date)}
+                          onChange={(date) => 
+                          setDate(date)}
                           dateFormat="dd/MM/yyyy"
                         />
                         

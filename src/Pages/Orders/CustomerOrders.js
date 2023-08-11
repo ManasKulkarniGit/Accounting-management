@@ -11,7 +11,7 @@ import "../../Pages/Home/Home.sass";
 import { collection, query, getDocs, where } from "firebase/firestore";
 import db from "../../firebase"
 import {Link, useParams} from "react-router-dom"
-
+import format from "date-fns/format";
 
 const CustomerOrders = () => {
   const {id} = useParams();
@@ -42,7 +42,11 @@ const CustomerOrders = () => {
             const q = query(collection(db, "orders"),where("customer","==",id));
             const queryt = await getDocs(q);
             queryt.forEach((doc) => {
-                a.push(doc.data())
+                let orderData=doc.data()
+                const formattedDate = format(orderData.date.toDate(), "dd/MM/yyyy");
+                // console.log(formattedDate);
+                orderData.date = formattedDate;
+                a.push(orderData)
             });
             // console.log(a)
             setRows(a);

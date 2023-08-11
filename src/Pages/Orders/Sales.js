@@ -17,6 +17,7 @@ import "../../Reusable Styling/Table.sass";
 import { collection, query, getDocs } from "firebase/firestore";
 import db from "../../firebase"
 import SalesTable from "../../Components/Chart&Table/SalesTable";
+import format from "date-fns/format";
 // import { toast } from "react-hot-toast";
 
 const Sales = () => {
@@ -37,7 +38,10 @@ const Sales = () => {
             const q = query(collection(db, "orders"));
             const queryt = await getDocs(q);
             queryt.forEach((doc) => {
-                a.push(doc.data())
+              let orderData=doc.data()
+              const jsDate = orderData.date.toDate();
+              orderData.date = format(jsDate, "dd/MM/yyyy");
+              a.push(orderData)
             });
             // console.log(a)
             setRows(a);
