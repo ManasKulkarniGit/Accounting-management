@@ -8,7 +8,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import ListInTable from "../../Reusable Components/DataTable";
 import { orderProductsListTableColumns } from "./OrderProductsData";
 import "../../App.sass";
-import { collection, query, getDocs , deleteDoc , doc , where, updateDoc} from "firebase/firestore";
+import { collection, query, getDocs  , doc , where, updateDoc} from "firebase/firestore";
 import db from "../../firebase"
 import toast from "react-hot-toast";
 import "./invoice.css"
@@ -32,7 +32,7 @@ const OrderProducts = () => {
         const orderData = orderDoc.data();
     
         const products = orderData.products;
-        console.log(products)
+        // console.log(products)
         const productPromises = products.map(async (product) => {
           const productId = product.subproductId;
           const productQuantity = product.quantity;
@@ -90,7 +90,7 @@ const OrderProducts = () => {
   }, []);
 
 
-  function handleDelete(subproductid) {
+  function handleDelete(subproductid,subproductQuantity) {
     // console.log(typeof(id),id)
     const q = query(collection(db, "orders"), where("id", "==", id));
     getDocs(q)
@@ -106,6 +106,30 @@ const OrderProducts = () => {
 
           updateDoc(documentRef, { products: updatedProducts })
             .then(() => {
+              let tmp = query(collection(db, "sub-product"), where("id", "==", subproductid));
+              getDocs(tmp)
+              .then((querySnapshot) => {
+                  if (!querySnapshot.empty) {
+                  querySnapshot.forEach((docg) => {
+                      const documentRef = doc(db, "sub-product", docg.id);
+                      let oq=parseInt(docg.data().quantity)
+                      let nq=oq+parseInt(subproductQuantity);
+                      updateDoc(documentRef, {quantity : nq.toString()})
+                      .then(() => {
+                          console.log("product updated")
+                      })
+                      .catch((error) => {
+                          console.error("Error updating document:", error);
+                      });
+                  });
+                  } else {
+                    console.log("Document with the specified attribute not found.");
+                  }
+              })
+              .catch((error) => {
+                  console.error("Error getting documents:", error);
+              });
+              setRows(prevRows => prevRows.filter(row => row.id !== subproductid));
               toast.success("Subproduct deleted successfully");
             })
             .catch((error) => {
@@ -160,7 +184,7 @@ const OrderProducts = () => {
             </Link>
             <div
               className="delete_btn"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row.id,params.row.quantity)}
             >
               Delete
             </div>
