@@ -86,6 +86,7 @@ const Sales = () => {
         let on=0;
         if (rows.length > 0) {
           rows.forEach((order) => {
+                // console.log(order)
                 if(order.status === "pending"){
                   p=p+1
                 }
@@ -93,6 +94,7 @@ const Sales = () => {
                   d=d+1
                 }
                 if(order.paymentmethod === "cash"){
+                  // console.log("hi");
                   ca=ca+1
                 }
                 else{
@@ -104,7 +106,8 @@ const Sales = () => {
                   let u=subproducts.filter((a)=>
                     sub.subproductId === a.id
                   )
-                  total+=(sub.quantity*u[0].sellCost)
+                  console.log(u,sub.subproductId);
+                  total+=(parseInt(sub.quantity*u[0].sellCost))
                 })                
               }
           });
