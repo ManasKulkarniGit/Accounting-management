@@ -41,33 +41,33 @@ const Units = () => {
     document.title = "Customers | Admin Dashboard";
   });
 
-  function handleDelete(id) {
-    // console.log(typeof(id),id)
-    const q = query(collection(db, "customers"), where("id", "==", id));
-    getDocs(q)
-      .then((querySnapshot) => {
-        // console.log("hiii")
-        // console.log(querySnapshot.empty)
-        if (!querySnapshot.empty) {
-          const document = querySnapshot.docs[0];
-          const documentRef = doc(db, "customers", document.id);
-          deleteDoc(documentRef)
-            .then(() => {
-              toast.success("customer deleted successfully");
-              setRows(rows.filter((row) => row.id !== id));
-            })
-            .catch((error) => {
-              console.error("Error deleting document:", error);
-            });
-        } else {
-          console.log("Document with the specified attribute not found.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error getting documents:", error);
-      });
+  // function handleDelete(id) {
+  //   // console.log(typeof(id),id)
+  //   const q = query(collection(db, "customers"), where("id", "==", id));
+  //   getDocs(q)
+  //     .then((querySnapshot) => {
+  //       // console.log("hiii")
+  //       // console.log(querySnapshot.empty)
+  //       if (!querySnapshot.empty) {
+  //         const document = querySnapshot.docs[0];
+  //         const documentRef = doc(db, "customers", document.id);
+  //         deleteDoc(documentRef)
+  //           .then(() => {
+  //             toast.success("customer deleted successfully");
+  //             setRows(rows.filter((row) => row.id !== id));
+  //           })
+  //           .catch((error) => {
+  //             console.error("Error deleting document:", error);
+  //           });
+  //       } else {
+  //         console.log("Document with the specified attribute not found.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error getting documents:", error);
+  //     });
     
-  }
+  // }
 
   const actionColumn = [
     {
@@ -86,12 +86,12 @@ const Units = () => {
             >
               View
             </Link>
-            <div
+            {/* <div
               className="delete_btn"
               onClick={() => handleDelete(params.row.id)}
             >
               Delete
-            </div>
+            </div> */}
             <Link
               to={orders}
               style={{ textDecoration: "none", color: "unset" }}

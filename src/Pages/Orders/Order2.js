@@ -296,7 +296,7 @@ const Order2 = () => {
                           maxLength={10}
                         />
                       </div> */}
-                      <select id="productDropdown" onChange={handleDropdownChange}>
+                      <select id="productDropdown" onChange={handleDropdownChange} required>
                         <option value="">Select a product</option>
                         {options}
                      </select>
@@ -316,7 +316,7 @@ const Order2 = () => {
                         />
                       </div> 
                     </div>
-                    <button type="submit">Update</button>
+                    <button type="submit">ADD</button>
                   </form>
                   {/* <select id="productDropdown" onChange={handleDropdownChange}>
                     <option value="">Select a product</option>

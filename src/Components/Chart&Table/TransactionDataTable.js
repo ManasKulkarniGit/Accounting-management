@@ -49,10 +49,44 @@ const TransactionDataTable = ({ onRowClick, tableRows }) => {
         if (!querySnapshot.empty) {
           const document = querySnapshot.docs[0];
           const documentRef = doc(db, "orders", document.id);
+          // console.log(documentRef);
+          // console.log(document.data());
+          const productsArray = document.data().products;
+          const subproductsToUpdate = productsArray.map((product) => ({
+            subproductId: product.subproductId,
+            quantity: parseInt(product.quantity), 
+          }));
+          // console.log(subproductsToUpdate);
           deleteDoc(documentRef)
             .then(() => {
-              toast.success("Order deleted successfully");
-              seta(a.filter((row) => row.id !== id));
+              subproductsToUpdate.forEach((subproduct) => {
+                // const subproductRef = doc(db, "sub-product", subproduct.subproductId);
+                let tmp = query(collection(db, "sub-product"), where("id", "==", subproduct.subproductId));
+                getDocs(tmp)
+                .then((querySnapshot) => {
+                  if (!querySnapshot.empty) {
+                  querySnapshot.forEach((docg) => {
+                      const documentRef = doc(db, "sub-product", docg.id);
+                      let oq=parseInt(docg.data().quantity)
+                      let nq=oq+subproduct.quantity;
+                      updateDoc(documentRef, {quantity : nq.toString()})
+                      .then(() => {
+                          console.log("product delete yes");
+                          toast.success("Order deleted successfully");
+                          seta(a.filter((row) => row.id !== id));
+                      })
+                      .catch((error) => {
+                          console.error("Error updating document:", error);
+                      });
+                  });
+                  } else {
+                    console.log("Document with the specified attribute not found.");
+                  }
+              })
+              .catch((error) => {
+                  console.error("Error getting documents:", error);
+              });
+              });
             })
             .catch((error) => {
               console.error("Error deleting document:", error);
