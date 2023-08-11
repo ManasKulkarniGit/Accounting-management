@@ -7,6 +7,7 @@ import Products from "./Pages/Products/Products";
 // import Categories from "./Pages/Categories/Categories";
 import Units from "./Pages/Units/Units";
 import AddUsers from "./Pages/Users/AddUsers";
+import UpdateUser from "./Pages/Users/UpdateUser";
 import AddProducts from "./Pages/Products/AddProducts";
 import UpdateSubproduct from "./Pages/Products/UpdateSubproduct";
 import AddSubProduct from "./Pages/Products/AddSubProduct";
@@ -159,6 +160,7 @@ function App() {
                     <Route path="/users">
                       <Route index element={<Users />} />
                       <Route path="/users/new" element={<AddUsers />} />
+                      <Route path="/users/update/:id" element={<UpdateUser />} />
                     </Route>
                     <Route path="/products">
                       <Route index element={<Products />} />

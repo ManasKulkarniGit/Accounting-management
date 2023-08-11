@@ -9,7 +9,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import "../../Reusable Styling/AddItem.sass";
 import toast from 'react-hot-toast';
 import db from "../../firebase"
-import { collection, query, getDocs , where ,updateDoc ,doc, addDoc} from "firebase/firestore";
+import { collection, query, getDocs , where ,updateDoc ,doc} from "firebase/firestore";
 import { useParams } from 'react-router-dom';
 
 const UpdateSubProduct = () => {
@@ -64,58 +64,13 @@ const UpdateSubProduct = () => {
                 });
             });
             } else {
-                const usersCollectionRef = collection(db, "sub-product");
-                const newData = {
-                    subCategory:subCategory,
-                    actualCost:actualCost,
-                    sellCost:sellCost,
-                    gst:gst,
-                    id:id,
-                    parentId:parentId,
-                    quantity:quantity
-                };
-                addDoc(usersCollectionRef, newData)
-                .then(() => {
-                    toast.success("Sub Product Added successfully")
-                })
-                .catch((error)=>{
-                    console.error("Error Adding document:", error);
-                });
+                console.log("document not found");
             }
         })
         .catch((error) => {
             console.error("Error getting documents:", error);
         });
 
-
-    //   const newRow = {
-    //     id: uuidv4(),
-    //     productName:productName ,
-    //     category:category ,
-    //     brand:brand,
-    //     actualCost:actualCost,
-    //     sellCost:sellCost,
-    //     gst:gst,
-    //     quantity :quantity,
-    //     description:description,
-    //   };
-    //   const usersCollectionRef = collection(db, "products");
-    //   addDoc(usersCollectionRef, newRow)
-    //     .then((docRef) => {
-    //       toast.success("new staff added successfully")
-    //       setProductName("");
-    //       setCategory("");
-    //       setBrand("");
-    //       setActualCost("");
-    //       setSellCost("");
-    //       setgst("");
-    //       setQuantity("");
-    //       setDescription("");
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error adding new product:", error);
-    //     });
-      // setUserRows([...userRows, newRow]);
 };
   
 

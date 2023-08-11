@@ -69,10 +69,11 @@ const Users = () => {
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
+        const g=`/users/update/${params.row.id}`
         return (
           <div className="cell_action_div">
             <Link
-              to="/users"
+              to={g}
               style={{ textDecoration: "none", color: "unset" }}
               className="view_btn"
             >
