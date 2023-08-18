@@ -9,7 +9,7 @@ import Chart from "../../Components/Chart&Table/Chart";
 import Loader from "../../Reusable Components/Loader";
 // import TransactionDataTable from "../../Components/Chart&Table/TransactionDataTable";
 // import { transactionTableData } from "../../Components/Chart&Table/TransactionData";
-import { data } from "../../Components/Chart&Table/ChartData";
+// import { data } from "../../Components/Chart&Table/ChartData";
 import "../../App.sass";
 import "./Home.sass";
 import { collection, query, getDocs , where } from "firebase/firestore";
@@ -20,6 +20,7 @@ const Home = () => {
   const { handleDarkMode } = useContext(ThemeContext);
   const { isLoading } = useContext(LoaderContext);
   const [currentPost, setCurrentPost] = useState([]);
+  const [data, setdata] = useState([]);
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -59,6 +60,34 @@ const Home = () => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+
+  const inig=()=>{
+    if(currentPost.length !==0 ){
+      const formattedData = [];
+      currentPost.forEach((weekSales, index) => {
+        const weekStats = {
+          name: `Week ${index + 1}`,
+          "Total Orders": weekSales.length,
+          "Orders Delivered": weekSales.filter(order => order.status === 'delivered').length,
+          "Orders Pending": weekSales.filter(order => order.status === 'pending').length,
+        };
+
+        formattedData.push(weekStats);
+      });
+      setdata(formattedData)   
+    }
+  }
+
+  useEffect(()=>{
+    if(currentPost.length !== 0){
+        inig();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[currentPost])
+
+
+
+
 
 
 
