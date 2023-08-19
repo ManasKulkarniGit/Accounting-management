@@ -95,8 +95,10 @@ const AddOrder = () => {
   function handleSubmit(e) {
         e.preventDefault();
         const short = shortShopName(customer.shopname);  
-        const newid = `${short}2023${count+1}`;
+        const date = new Date();
+        const newid = `${short}${date.getFullYear()}${count+1}`;
         // const dateString = date.toString().substring(0,10);
+        console.log(newid);
         // const dateString = format(date,"dd/MM/yyyy");  
         const newData = {
             id : newid,
@@ -237,7 +239,7 @@ const AddOrder = () => {
                         />
                       </div> */}
                     </div>
-                    <button type="submit">Update</button>
+                    <button type="submit">ADD</button>
                   </form>
                 </div>
               </div>
