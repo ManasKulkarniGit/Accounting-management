@@ -106,11 +106,17 @@ const Invoice = () => {
       // console.log(order)
       // if (order.length > 0) {
         for (const mainProduct of order.products) {
-              console.log(mainProduct)
+              // console.log(mainProduct)
               const fg= await getSubproduct(mainProduct.subproductId)
-              const total = (mainProduct.quantity*fg.sellCost).toString();
+              // console.log(fg.sellCost,mainProduct.quantity)
+              const total = (parseInt(mainProduct.quantity)*parseInt(fg.sellCost)).toString();
+              // console.log(total)
               g+=parseInt(total)
               let u=fg.productName+"-"+fg.subCategory
+              // console.log(g,u)
+              const date = order.date.toDate();
+              const dateString = date.toLocaleDateString();
+              // let hj=order.date.to
               let d={
                 customer:order.customername,
                 pname:u,
@@ -119,7 +125,7 @@ const Invoice = () => {
                 quantity:mainProduct.quantity,
                 total:total,
                 id:order.id,
-                date:order.date,
+                date:dateString,
               }
               td.push(d)
         }
@@ -154,7 +160,7 @@ const Invoice = () => {
                   <div className="carrd">
                       <div className="card-body">
                           <div className="invoice-title">
-                              {/* <h4 class="float-end font-size-15">Invoice #DS0204 <span class="badge bg-success font-size-12 ms-2">Paid</span></h4> */}
+                              
                               <div className="mb-4">
                                 <h3 className="mb-1 text-muted">Bootdey.com</h3>
                               </div>
@@ -172,10 +178,10 @@ const Invoice = () => {
                                   <div className="text-muted">
                                       <h5 className="font-size-16 mb-3">Billed To:</h5>
                                       {/* {customer.ownername} */}
-                                      <h5 class="font-size-15 mb-2">{customer.shopname}</h5>
-                                      <p class="mb-1">Owner    : {customer.ownername}</p>
-                                      <p class="mb-1">Address  : {customer.address}</p>
-                                      <p class="mb-1">GSTIN/UIN: {customer.gst}</p>
+                                      <h5 className="font-size-15 mb-2">{customer.shopname}</h5>
+                                      <p className="mb-1">Owner    : {customer.ownername}</p>
+                                      <p className="mb-1">Address  : {customer.address}</p>
+                                      <p className="mb-1">GSTIN/UIN: {customer.gst}</p>
                                   </div>
                               </div>
                               

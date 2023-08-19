@@ -22,18 +22,32 @@ const Home = () => {
   const [currentPost, setCurrentPost] = useState([]);
   const [data, setdata] = useState([]);
   const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
+  // const currentMonth = currentDate.getMonth();
+  // const currentYear = currentDate.getFullYear();
 
+  // const startOfWeeks = [];
+  // const endOfWeeks = [];
+  // for (let weekNumber = 1; weekNumber <= 4; weekNumber++) {
+  //     const startOfWeek = new Date(currentYear, currentMonth, 1 + (weekNumber - 1) * 7);
+  //     const endOfWeek = new Date(currentYear, currentMonth, startOfWeek.getDate() + 6);
+  //     startOfWeeks.push(startOfWeek);
+  //     endOfWeeks.push(endOfWeek);
+  // }
+
+  // const currentDate = new Date();
   const startOfWeeks = [];
   const endOfWeeks = [];
-  for (let weekNumber = 1; weekNumber <= 4; weekNumber++) {
-      const startOfWeek = new Date(currentYear, currentMonth, 1 + (weekNumber - 1) * 7);
-      const endOfWeek = new Date(currentYear, currentMonth, startOfWeek.getDate() + 6);
+  
+  for (let weekNumber = 4; weekNumber >= 1; weekNumber--) {
+      const startOfWeek = new Date(currentDate);
+      startOfWeek.setDate(currentDate.getDate() - (7 * weekNumber));
+      
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 6);
+      
       startOfWeeks.push(startOfWeek);
       endOfWeeks.push(endOfWeek);
   }
-
 
   useEffect(() => {
     document.title = "Home | Admin Dashboard";
